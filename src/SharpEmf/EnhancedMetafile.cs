@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using JetBrains.Annotations;
 using SharpEmf.Records;
-using SharpEmf.Records.Eof;
-using SharpEmf.Records.Header;
+using SharpEmf.Records.Control.Eof;
+using SharpEmf.Records.Control.Header;
 
 namespace SharpEmf;
 

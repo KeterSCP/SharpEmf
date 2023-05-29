@@ -19,4 +19,10 @@ public enum EmfRecordType : uint
     /// This record indicates the end of the metafile
     /// </summary>
     EMR_EOF = 0x0000000E,
+
+    /// <summary>
+    /// Defines a line from the current drawing position up to, but not including,
+    /// the specified point. It resets the current drawing position to the specified point
+    /// </summary>
+    EMR_LINETO = 0x00000036,
 }

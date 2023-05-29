@@ -1,8 +1,9 @@
 ﻿using JetBrains.Annotations;
 using SharpEmf.Enums;
 using SharpEmf.Extensions;
-using SharpEmf.Records.Eof;
-using SharpEmf.Records.Header;
+using SharpEmf.Records.Control.Eof;
+using SharpEmf.Records.Control.Header;
+using SharpEmf.Records.Drawing;
 
 namespace SharpEmf.Records;
 
@@ -21,13 +22,15 @@ public abstract record EnhancedMetafileRecord
 
     public static EnhancedMetafileRecord Parse(Stream stream)
     {
-        var type = (EmfRecordType)stream.ReadUInt32();
+        var type = stream.ReadEnum<EmfRecordType>();
         var size = stream.ReadUInt32();
 
         return type switch
         {
             EmfRecordType.EMR_HEADER => EmfMetafileHeader.Parse(stream, type, size),
             EmfRecordType.EMR_EOF => EmrEof.Parse(stream, type, size),
+
+            EmfRecordType.EMR_LINETO => EmrLineto.Parse(stream, type, size),
             _ => SkipRecord(stream, type, size)
         };
     }

@@ -2,7 +2,7 @@
 using SharpEmf.Enums;
 using SharpEmf.Interfaces;
 
-namespace SharpEmf.Records.Eof;
+namespace SharpEmf.Records.Control.Eof;
 
 [PublicAPI]
 public record EmrEof : EnhancedMetafileRecord, IEmfParsable<EmrEof>
@@ -10,7 +10,7 @@ public record EmrEof : EnhancedMetafileRecord, IEmfParsable<EmrEof>
     public override EmfRecordType Type => EmfRecordType.EMR_EOF;
     public override uint Size { get; }
 
-    public EmrEof(uint size)
+    private EmrEof(uint size)
     {
         Size = size;
     }
