@@ -5,7 +5,7 @@ using SharpEmf.Extensions;
 using SharpEmf.Interfaces;
 using SharpEmf.WmfTypes;
 
-namespace SharpEmf.Records.Header;
+namespace SharpEmf.Records.Control.Header;
 
 [PublicAPI]
 public record EmfMetafileHeader : EnhancedMetafileRecord, IEmfParsable<EmfMetafileHeader>
@@ -131,18 +131,15 @@ public record EmfMetafileHeader : EnhancedMetafileRecord, IEmfParsable<EmfMetafi
             right: stream.ReadInt32(),
             bottom: stream.ReadInt32());
 
-        var signature = (FormatSignature)stream.ReadUInt32();
+        var signature = stream.ReadEnum<FormatSignature>();
         if (signature != FormatSignature.ENHMETA_SIGNATURE)
         {
             throw new Exception($"Invalid signature of EMF header: {signature}");
         }
 
-        var versionUInt32 = stream.ReadUInt32();
-        var version = (MetafileVersion)versionUInt32;
-        if (version != MetafileVersion.META_FORMAT_ENHANCED)
-        {
-            // TODO: log warning about unknown version
-        }
+        var version = stream.ReadEnum<MetafileVersion>();
+
+        Debug.Assert(version == MetafileVersion.META_FORMAT_ENHANCED);
 
         var bytes = stream.ReadUInt32();
         var records = stream.ReadUInt32();

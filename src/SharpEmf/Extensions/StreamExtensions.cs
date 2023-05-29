@@ -1,4 +1,6 @@
 ﻿using System.Buffers.Binary;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace SharpEmf.Extensions;
@@ -45,5 +47,15 @@ internal static class StreamExtensions
         Span<byte> buffer = length <= 1024 ? stackalloc byte[length] : new byte[length];
         stream.ReadExactly(buffer);
         return Encoding.Unicode.GetString(buffer);
+    }
+
+    internal static T ReadEnum<T>(this Stream stream) where T : Enum
+    {
+        var size = Unsafe.SizeOf<T>();
+
+        Span<byte> buffer = stackalloc byte[size];
+        stream.ReadExactly(buffer);
+
+        return Unsafe.As<byte, T>(ref MemoryMarshal.GetReference(buffer));
     }
 }

@@ -2,7 +2,7 @@
 using SharpEmf.Extensions;
 using SharpEmf.Interfaces;
 
-namespace SharpEmf.Records.Header;
+namespace SharpEmf.Records.Control.Header;
 
 /// <summary>
 /// Defines the second extension to the EMF metafile header
