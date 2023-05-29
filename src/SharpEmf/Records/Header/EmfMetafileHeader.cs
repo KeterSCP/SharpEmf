@@ -121,15 +121,15 @@ public record EmfMetafileHeader : EnhancedMetafileRecord, IEmfParsable<EmfMetafi
         }
 
         var bounds = new RectL(
-            left: stream.ReadUInt32(),
-            top: stream.ReadUInt32(),
-            right: stream.ReadUInt32(),
-            bottom: stream.ReadUInt32());
+            left: stream.ReadInt32(),
+            top: stream.ReadInt32(),
+            right: stream.ReadInt32(),
+            bottom: stream.ReadInt32());
         var frame = new RectL(
-            left: stream.ReadUInt32(),
-            top: stream.ReadUInt32(),
-            right: stream.ReadUInt32(),
-            bottom: stream.ReadUInt32());
+            left: stream.ReadInt32(),
+            top: stream.ReadInt32(),
+            right: stream.ReadInt32(),
+            bottom: stream.ReadInt32());
 
         var signature = (FormatSignature)stream.ReadUInt32();
         if (signature != FormatSignature.ENHMETA_SIGNATURE)
