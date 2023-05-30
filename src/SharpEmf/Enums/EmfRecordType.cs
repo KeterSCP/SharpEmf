@@ -21,6 +21,12 @@ public enum EmfRecordType : uint
     EMR_EOF = 0x0000000E,
 
     /// <summary>
+    /// Defines an ellipse. The center of the ellipse is the center of the specified bounding rectangle.
+    /// The ellipse is outlined by using the current pen and is filled by using the current brush
+    /// </summary>
+    EMR_ELLIPSE = 0x0000002A,
+
+    /// <summary>
     /// Defines a line from the current drawing position up to, but not including,
     /// the specified point. It resets the current drawing position to the specified point
     /// </summary>

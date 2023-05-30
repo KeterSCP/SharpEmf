@@ -113,13 +113,8 @@ public record EmfMetafileHeader : EnhancedMetafileRecord, IEmfParsable<EmfMetafi
         Description = description;
     }
 
-    public static EmfMetafileHeader Parse(Stream stream, EmfRecordType recordType, uint size)
+    public static EmfMetafileHeader Parse(Stream stream, uint size)
     {
-        if (recordType != EmfRecordType.EMR_HEADER)
-        {
-            throw new Exception($"Invalid type of record for EMR header. Expected: {EmfRecordType.EMR_HEADER}, Actual: {recordType}");
-        }
-
         var bounds = new RectL(
             left: stream.ReadInt32(),
             top: stream.ReadInt32(),

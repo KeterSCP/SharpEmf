@@ -27,7 +27,7 @@ public record EmrLineto : EnhancedMetafileRecord, IEmfParsable<EmrLineto>
         Point = point;
     }
 
-    public static EmrLineto Parse(Stream stream, EmfRecordType recordType, uint size)
+    public static EmrLineto Parse(Stream stream, uint size)
     {
         var point = new PointL(
             x: stream.ReadInt32(),
