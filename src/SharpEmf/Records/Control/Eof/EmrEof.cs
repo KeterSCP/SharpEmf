@@ -4,6 +4,7 @@ using SharpEmf.Interfaces;
 
 namespace SharpEmf.Records.Control.Eof;
 
+/// <inheritdoc cref="EmfRecordType.EMR_EOF"/>
 [PublicAPI]
 public record EmrEof : EnhancedMetafileRecord, IEmfParsable<EmrEof>
 {

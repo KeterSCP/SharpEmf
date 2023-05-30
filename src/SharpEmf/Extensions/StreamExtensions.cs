@@ -28,20 +28,6 @@ internal static class StreamExtensions
         return BinaryPrimitives.ReadUInt32LittleEndian(buffer);
     }
 
-    internal static ulong ReadUInt64(this Stream stream)
-    {
-        Span<byte> buffer = stackalloc byte[8];
-        stream.ReadExactly(buffer);
-        return BinaryPrimitives.ReadUInt64LittleEndian(buffer);
-    }
-
-    internal static UInt128 ReadUInt128(this Stream stream)
-    {
-        Span<byte> buffer = stackalloc byte[16];
-        stream.ReadExactly(buffer);
-        return BinaryPrimitives.ReadUInt128LittleEndian(buffer);
-    }
-
     internal static string ReadUnicodeString(this Stream stream, int length)
     {
         Span<byte> buffer = length <= 1024 ? stackalloc byte[length] : new byte[length];
