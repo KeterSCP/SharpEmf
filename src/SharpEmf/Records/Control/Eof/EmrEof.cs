@@ -15,7 +15,7 @@ public record EmrEof : EnhancedMetafileRecord, IEmfParsable<EmrEof>
         Size = size;
     }
 
-    public static EmrEof Parse(Stream stream, EmfRecordType recordType, uint size)
+    public static EmrEof Parse(Stream stream, uint size)
     {
         // TODO: Implement parsing
 

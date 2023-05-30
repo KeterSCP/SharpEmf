@@ -27,10 +27,11 @@ public abstract record EnhancedMetafileRecord
 
         return type switch
         {
-            EmfRecordType.EMR_HEADER => EmfMetafileHeader.Parse(stream, type, size),
-            EmfRecordType.EMR_EOF => EmrEof.Parse(stream, type, size),
+            EmfRecordType.EMR_HEADER => EmfMetafileHeader.Parse(stream, size),
+            EmfRecordType.EMR_EOF => EmrEof.Parse(stream, size),
 
-            EmfRecordType.EMR_LINETO => EmrLineto.Parse(stream, type, size),
+            EmfRecordType.EMR_ELLIPSE => EmrEllipse.Parse(stream, size),
+            EmfRecordType.EMR_LINETO => EmrLineto.Parse(stream, size),
             _ => SkipRecord(stream, type, size)
         };
     }

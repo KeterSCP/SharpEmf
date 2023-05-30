@@ -1,6 +1,4 @@
-﻿using SharpEmf.Enums;
-
-namespace SharpEmf.Interfaces;
+﻿namespace SharpEmf.Interfaces;
 
 /// <summary>
 /// Provides static abstract method for parsing EMF record
@@ -8,5 +6,5 @@ namespace SharpEmf.Interfaces;
 /// <typeparam name="T">Type of EMF record to be parsed</typeparam>
 internal interface IEmfParsable<out T> where T : IEmfParsable<T>
 {
-    internal static abstract T Parse(Stream stream, EmfRecordType recordType, uint size);
+    internal static abstract T Parse(Stream stream, uint size);
 }
