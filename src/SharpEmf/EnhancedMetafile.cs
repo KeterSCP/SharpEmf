@@ -37,7 +37,7 @@ public sealed class EnhancedMetafile
         var header = (EmfMetafileHeader)EnhancedMetafileRecord.Parse(fs);
         fs.Seek(header.Size - fs.Position, SeekOrigin.Current);
 
-        var records = new List<EnhancedMetafileRecord>((int)header.Records - 2);
+        var records = new List<EnhancedMetafileRecord>(checked((int)header.Records - 2));
 
         while (fs.Position < fs.Length)
         {
