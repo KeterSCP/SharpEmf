@@ -1,5 +1,6 @@
 ﻿using JetBrains.Annotations;
 using SharpEmf.Enums;
+using SharpEmf.Exceptions;
 using SharpEmf.Extensions;
 using SharpEmf.Records.Control.Eof;
 using SharpEmf.Records.Control.Header;
@@ -38,6 +39,11 @@ public abstract record EnhancedMetafileRecord
 
     private static EnhancedMetafileRecord SkipRecord(Stream stream, EmfRecordType type, uint size)
     {
+        if (Enum.IsDefined(type))
+        {
+            throw new MissingEmfRecordParserException(type);
+        }
+
         Console.WriteLine($"Skipping record of type {type} with size {size}");
         stream.Seek(size - 8, SeekOrigin.Current);
         return null!;

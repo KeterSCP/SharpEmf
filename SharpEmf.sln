@@ -11,6 +11,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9E1188D3-00AC-4D61-9626-4DCBA561FE88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpEmf.UnitTests", "tests\SharpEmf.UnitTests\SharpEmf.UnitTests.csproj", "{2BF9EA6A-0AF1-495E-BAF1-0E91150CD885}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,8 +25,13 @@ Global
 		{76508D82-8D2E-440C-9690-A2CB9F050A21}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76508D82-8D2E-440C-9690-A2CB9F050A21}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76508D82-8D2E-440C-9690-A2CB9F050A21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BF9EA6A-0AF1-495E-BAF1-0E91150CD885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BF9EA6A-0AF1-495E-BAF1-0E91150CD885}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BF9EA6A-0AF1-495E-BAF1-0E91150CD885}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BF9EA6A-0AF1-495E-BAF1-0E91150CD885}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{76508D82-8D2E-440C-9690-A2CB9F050A21} = {35AA0FA2-85E0-4264-9FD8-8CE5ACCAEBA7}
+		{2BF9EA6A-0AF1-495E-BAF1-0E91150CD885} = {9E1188D3-00AC-4D61-9626-4DCBA561FE88}
 	EndGlobalSection
 EndGlobal
