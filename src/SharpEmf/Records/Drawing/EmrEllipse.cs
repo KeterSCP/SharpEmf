@@ -6,10 +6,7 @@ using SharpEmf.WmfTypes;
 
 namespace SharpEmf.Records.Drawing;
 
-/// <summary>
-/// Specifies an ellipse. The center of the ellipse is the center of the specified bounding rectangle.
-/// The ellipse is outlined by using the current pen and is filled by using the current brush
-/// </summary>
+/// <inheritdoc cref="EmfRecordType.EMR_ELLIPSE"/>
 [PublicAPI]
 public record EmrEllipse : EnhancedMetafileRecord, IEmfParsable<EmrEllipse>
 {

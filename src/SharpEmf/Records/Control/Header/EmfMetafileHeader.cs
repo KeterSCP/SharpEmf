@@ -7,6 +7,7 @@ using SharpEmf.WmfTypes;
 
 namespace SharpEmf.Records.Control.Header;
 
+/// <inheritdoc cref="EmfRecordType.EMR_HEADER"/>
 [PublicAPI]
 public record EmfMetafileHeader : EnhancedMetafileRecord, IEmfParsable<EmfMetafileHeader>
 {
@@ -19,12 +20,12 @@ public record EmfMetafileHeader : EnhancedMetafileRecord, IEmfParsable<EmfMetafi
     public override uint Size { get; }
 
     /// <summary>
-    ///  A RectL object that specifies the rectangular inclusive-inclusive bounds in logical units of the smallest rectangle that can be drawn around the image stored in the metafile
+    /// Specifies the rectangular inclusive-inclusive bounds in logical units of the smallest rectangle that can be drawn around the image stored in the metafile
     /// </summary>
     public RectL Bounds { get; }
 
     /// <summary>
-    /// A RectL object that specifies the rectangular inclusive-inclusive dimensions, in .01 millimeter units, of a rectangle that surrounds the image stored in the metafile
+    /// Specifies the rectangular inclusive-inclusive dimensions, in .01 millimeter units, of a rectangle that surrounds the image stored in the metafile
     /// </summary>
     public RectL Frame { get; }
 

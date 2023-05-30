@@ -38,4 +38,9 @@ public enum EmfRecordType : uint
     /// the specified point. It resets the current drawing position to the specified point
     /// </summary>
     EMR_LINETO = 0x00000036,
+
+    /// <summary>
+    /// Renders the specified path by using the current pen
+    /// </summary>
+    EMR_STROKEPATH = 0x00000040,
 }

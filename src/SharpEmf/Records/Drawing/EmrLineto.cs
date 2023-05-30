@@ -6,10 +6,7 @@ using SharpEmf.WmfTypes;
 
 namespace SharpEmf.Records.Drawing;
 
-/// <summary>
-/// Specifies a line from the current drawing position up to, but not including, the specified point.
-/// It resets the current position to the specified point
-/// </summary>
+/// <inheritdoc cref="EmfRecordType.EMR_LINETO"/>
 [PublicAPI]
 public record EmrLineto : EnhancedMetafileRecord, IEmfParsable<EmrLineto>
 {

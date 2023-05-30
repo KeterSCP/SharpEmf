@@ -6,9 +6,7 @@ using SharpEmf.WmfTypes;
 
 namespace SharpEmf.Records.Drawing;
 
-/// <summary>
-/// Specifies a polygon consisting of two or more vertexes connected by straight lines
-/// </summary>
+/// <inheritdoc cref="EmfRecordType.EMR_POLYGON"/>
 [PublicAPI]
 public record EmrPolygon : EnhancedMetafileRecord, IEmfParsable<EmrPolygon>
 {
