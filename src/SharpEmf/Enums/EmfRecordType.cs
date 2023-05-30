@@ -16,6 +16,13 @@ public enum EmfRecordType : uint
     EMR_HEADER = 0x00000001,
 
     /// <summary>
+    /// Defines a polygon consisting of two or more vertexes connected by straight lines.
+    /// The polygon is outlined by using the current pen and filled by using the current brush and polygon fill mode.
+    /// The polygon is closed automatically by drawing a line from the last vertex to the first
+    /// </summary>
+    EMR_POLYGON = 0x00000003,
+
+    /// <summary>
     /// This record indicates the end of the metafile
     /// </summary>
     EMR_EOF = 0x0000000E,

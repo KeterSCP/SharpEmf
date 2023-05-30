@@ -31,8 +31,10 @@ public abstract record EnhancedMetafileRecord
             EmfRecordType.EMR_HEADER => EmfMetafileHeader.Parse(stream, size),
             EmfRecordType.EMR_EOF => EmrEof.Parse(stream, size),
 
+            EmfRecordType.EMR_POLYGON => EmrPolygon.Parse(stream, size),
             EmfRecordType.EMR_ELLIPSE => EmrEllipse.Parse(stream, size),
             EmfRecordType.EMR_LINETO => EmrLineto.Parse(stream, size),
+
             _ => SkipRecord(stream, type, size)
         };
     }
@@ -44,7 +46,6 @@ public abstract record EnhancedMetafileRecord
             throw new MissingEmfRecordParserException(type);
         }
 
-        Console.WriteLine($"Skipping record of type {type} with size {size}");
         stream.Seek(size - 8, SeekOrigin.Current);
         return null!;
     }
