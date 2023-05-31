@@ -3,7 +3,8 @@
 namespace SharpEmf.Enums;
 
 /// <summary>
-/// Defines values that uniquely identify records in an EMF metafile. These values are specified in the <see cref="EnhancedMetafileRecord.Type"/> fields of EMF records
+/// Defines values that uniquely identify records in an EMF metafile.
+/// These values are specified in the <see cref="EnhancedMetafileRecord.Type"/> fields of EMF records
 /// </summary>
 public enum EmfRecordType : uint
 {
@@ -32,6 +33,13 @@ public enum EmfRecordType : uint
     /// The ellipse is outlined by using the current pen and is filled by using the current brush
     /// </summary>
     EMR_ELLIPSE = 0x0000002A,
+
+    /// <summary>
+    /// Defines a rectangle. The rectangle is outlined by using the current pen and filled by using the current brush <para />
+    /// The current drawing position is neither used nor updated by this record. <para />
+    /// If a PS_NULL pen is used, the dimensions of the rectangle are 1 pixel less in height and 1 pixel less in width
+    /// </summary>
+    EMR_RECTANGLE = 0x0000002B,
 
     /// <summary>
     /// Defines a line from the current drawing position up to, but not including,
