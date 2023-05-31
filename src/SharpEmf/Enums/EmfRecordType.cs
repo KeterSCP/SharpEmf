@@ -29,6 +29,11 @@ public enum EmfRecordType : uint
     EMR_EOF = 0x0000000E,
 
     /// <summary>
+    /// Defines the color of the pixel at the specified logical coordinates
+    /// </summary>
+    EMR_SETPIXELV = 0x0000000F,
+
+    /// <summary>
     /// Defines an ellipse. The center of the ellipse is the center of the specified bounding rectangle.
     /// The ellipse is outlined by using the current pen and is filled by using the current brush
     /// </summary>

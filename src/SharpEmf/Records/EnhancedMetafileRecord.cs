@@ -31,6 +31,7 @@ public abstract record EnhancedMetafileRecord
             EmfRecordType.EMR_HEADER => EmfMetafileHeader.Parse(stream, size),
             EmfRecordType.EMR_EOF => EmrEof.Parse(stream, size),
 
+            EmfRecordType.EMR_SETPIXELV => EmrSetPixelv.Parse(stream, size),
             EmfRecordType.EMR_POLYGON => EmrPolygon.Parse(stream, size),
             EmfRecordType.EMR_ELLIPSE => EmrEllipse.Parse(stream, size),
             EmfRecordType.EMR_RECTANGLE => EmrRectangle.Parse(stream, size),
