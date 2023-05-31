@@ -46,7 +46,7 @@ public record EmrPolygon : EnhancedMetafileRecord, IEmfParsable<EmrPolygon>
 
         // TODO: according to the documentation, number of maximum points allowed depends on line width and on the fact if device supports wideline
         var count = stream.ReadUInt32();
-        var points = new PointL[checked((int)count)];
+        var points = new PointL[(int)count];
 
         for (var i = 0; i < count; i++)
         {

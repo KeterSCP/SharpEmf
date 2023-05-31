@@ -51,8 +51,8 @@ public record EmrPolydraw : EnhancedMetafileRecord, IEmfParsable<EmrPolydraw>
             bottom: stream.ReadInt32());
 
         var count = stream.ReadUInt32();
-        var points = new PointL[checked((int)count)];
-        var abPoints = new Point[checked((int)count)];
+        var points = new PointL[(int)count];
+        var abPoints = new Point[(int)count];
 
         for (var i = 0; i < count; i++)
         {

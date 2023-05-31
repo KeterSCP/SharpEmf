@@ -260,10 +260,7 @@ public record EmfMetafileHeader : EnhancedMetafileRecord, IEmfParsable<EmfMetafi
         if (offDescription >= FixedSize && offDescription + nDescription * 2 <= Size)
         {
             Debug.Assert(stream.Position == offDescription);
-            checked
-            {
-                return stream.ReadUnicodeString((int)(nDescription * 2));
-            }
+            return stream.ReadUnicodeString((int)(nDescription * 2));
         }
 
         return null;
