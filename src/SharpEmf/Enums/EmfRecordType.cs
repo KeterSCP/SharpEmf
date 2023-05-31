@@ -48,6 +48,11 @@ public enum EmfRecordType : uint
     EMR_LINETO = 0x00000036,
 
     /// <summary>
+    /// Defines a set of line segments and Bezier curves
+    /// </summary>
+    EMR_POLYDRAW = 0x00000038,
+
+    /// <summary>
     /// Closes any open figures in the current path bracket and fills its interior by using the current brush and polygon-filling mode
     /// </summary>
     EMR_FILLPATH = 0x0000003E,
