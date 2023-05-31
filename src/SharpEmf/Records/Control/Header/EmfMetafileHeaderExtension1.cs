@@ -5,8 +5,8 @@ using SharpEmf.Interfaces;
 namespace SharpEmf.Records.Control.Header;
 
 /// <summary>
-/// Defines the first extension to the EMF metafile header. It adds support
-/// for a PixelFormatDescriptor object and OpenGL records
+/// Defines the first extension to the EMF metafile header.
+/// It adds support for a <see cref="SharpEmf.Objects.PixelFormatDescriptor"/>> object and OpenGL records
 /// </summary>
 [PublicAPI]
 public record EmfMetafileHeaderExtension1 : EmfMetafileHeader, IEmfParsableExtension<EmfMetafileHeader, EmfMetafileHeaderExtension1>
