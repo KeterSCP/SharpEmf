@@ -7,11 +7,11 @@ namespace SharpEmf.Extensions;
 
 internal static class StreamExtensions
 {
-    internal static int ReadInt32(this Stream stream)
+    internal static short ReadInt16(this Stream stream)
     {
-        Span<byte> buffer = stackalloc byte[4];
+        Span<byte> buffer = stackalloc byte[2];
         stream.ReadExactly(buffer);
-        return BinaryPrimitives.ReadInt32LittleEndian(buffer);
+        return BinaryPrimitives.ReadInt16LittleEndian(buffer);
     }
 
     internal static ushort ReadUInt16(this Stream stream)
@@ -19,6 +19,13 @@ internal static class StreamExtensions
         Span<byte> buffer = stackalloc byte[2];
         stream.ReadExactly(buffer);
         return BinaryPrimitives.ReadUInt16LittleEndian(buffer);
+    }
+
+    internal static int ReadInt32(this Stream stream)
+    {
+        Span<byte> buffer = stackalloc byte[4];
+        stream.ReadExactly(buffer);
+        return BinaryPrimitives.ReadInt32LittleEndian(buffer);
     }
 
     internal static uint ReadUInt32(this Stream stream)
