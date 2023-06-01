@@ -81,11 +81,7 @@ public record EmrGradientFill : EnhancedMetafileRecord, IEmfParsable<EmrGradient
 
     public static EmrGradientFill Parse(Stream stream, uint size)
     {
-        var bounds = new RectL(
-            left: stream.ReadInt32(),
-            top: stream.ReadInt32(),
-            right: stream.ReadInt32(),
-            bottom: stream.ReadInt32());
+        var bounds = RectL.Parse(stream);
 
         var nVer = stream.ReadUInt32();
         var nTri = stream.ReadUInt32();

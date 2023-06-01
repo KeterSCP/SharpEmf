@@ -1,6 +1,5 @@
 ﻿using JetBrains.Annotations;
 using SharpEmf.Enums;
-using SharpEmf.Extensions;
 using SharpEmf.Interfaces;
 using SharpEmf.Objects;
 using SharpEmf.WmfTypes;
@@ -33,9 +32,7 @@ public record EmrSetPixelv : EnhancedMetafileRecord, IEmfParsable<EmrSetPixelv>
 
     public static EmrSetPixelv Parse(Stream stream, uint size)
     {
-        var pixel = new PointL(
-            x: stream.ReadInt32(),
-            y: stream.ReadInt32());
+        var pixel = PointL.Parse(stream);
 
         var color = ColorRef.Parse(stream);
 

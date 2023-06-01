@@ -1,6 +1,5 @@
 ﻿using JetBrains.Annotations;
 using SharpEmf.Enums;
-using SharpEmf.Extensions;
 using SharpEmf.Interfaces;
 using SharpEmf.WmfTypes;
 
@@ -26,11 +25,7 @@ public record EmrFillpath : EnhancedMetafileRecord, IEmfParsable<EmrFillpath>
 
     public static EmrFillpath Parse(Stream stream, uint size)
     {
-        var bounds = new RectL(
-            left: stream.ReadInt32(),
-            top: stream.ReadInt32(),
-            right: stream.ReadInt32(),
-            bottom: stream.ReadInt32());
+        var bounds = RectL.Parse(stream);
 
         return new EmrFillpath(size, bounds);
     }

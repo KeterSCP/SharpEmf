@@ -1,4 +1,5 @@
 ﻿using JetBrains.Annotations;
+using SharpEmf.Extensions;
 
 namespace SharpEmf.WmfTypes;
 
@@ -18,9 +19,13 @@ public readonly struct PointL
     /// </summary>
     public int Y { get; }
 
-    public PointL(int x, int y)
+    private PointL(int x, int y)
     {
         X = x;
         Y = y;
     }
+
+    public static PointL Parse(Stream stream) => new(
+        x: stream.ReadInt32(),
+        y: stream.ReadInt32());
 }

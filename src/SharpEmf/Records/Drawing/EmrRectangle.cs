@@ -1,6 +1,5 @@
 ﻿using JetBrains.Annotations;
 using SharpEmf.Enums;
-using SharpEmf.Extensions;
 using SharpEmf.Interfaces;
 using SharpEmf.WmfTypes;
 
@@ -26,11 +25,7 @@ public record EmrRectangle : EnhancedMetafileRecord, IEmfParsable<EmrRectangle>
 
     public static EmrRectangle Parse(Stream stream, uint size)
     {
-        var box = new RectL(
-            left: stream.ReadInt32(),
-            top: stream.ReadInt32(),
-            right: stream.ReadInt32(),
-            bottom: stream.ReadInt32());
+        var box = RectL.Parse(stream);
 
         return new EmrRectangle(size, box);
     }
