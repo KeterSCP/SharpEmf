@@ -38,6 +38,16 @@ public enum EmfRecordType : uint
     EMR_POLYLINE = 0x00000004,
 
     /// <summary>
+    ///  This record defines one or more straight lines based upon the current drawing position
+    /// </summary>
+    /// <remarks>
+    /// A line is drawn from the current drawing position to the first point specified by the points
+    /// field by using the current pen. For each additional line, drawing is performed from the ending
+    /// point of the previous line to the next point specified by points
+    /// </remarks>
+    EMR_POLYLINETO = 0x00000006,
+
+    /// <summary>
     /// This record indicates the end of the metafile
     /// </summary>
     EMR_EOF = 0x0000000E,
