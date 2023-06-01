@@ -35,6 +35,13 @@ internal static class StreamExtensions
         return BinaryPrimitives.ReadUInt32LittleEndian(buffer);
     }
 
+    internal static float ReadFloat32(this Stream stream)
+    {
+        Span<byte> buffer = stackalloc byte[4];
+        stream.ReadExactly(buffer);
+        return BinaryPrimitives.ReadSingleLittleEndian(buffer);
+    }
+
     internal static string ReadUnicodeString(this Stream stream, int length)
     {
         Span<byte> buffer = length <= 1024 ? stackalloc byte[length] : new byte[length];

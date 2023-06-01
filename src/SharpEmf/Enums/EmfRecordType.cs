@@ -58,6 +58,16 @@ public enum EmfRecordType : uint
     EMR_SETPIXELV = 0x0000000F,
 
     /// <summary>
+    /// Defines a line segment of an arc
+    /// </summary>
+    /// <remarks>
+    /// The line segment is drawn from the current drawing position to the beginning of the arc.
+    /// The arc is drawn along the perimeter of a circle with the given radius and center.
+    /// The length of the arc is defined by the given start and sweep angles
+    /// </remarks>
+    EMR_ANGLEARC = 0x00000029,
+
+    /// <summary>
     /// Defines an ellipse. The center of the ellipse is the center of the specified bounding rectangle.
     /// The ellipse is outlined by using the current pen and is filled by using the current brush
     /// </summary>
