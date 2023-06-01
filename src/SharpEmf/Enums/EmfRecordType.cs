@@ -1,4 +1,5 @@
-﻿using SharpEmf.Records;
+﻿using JetBrains.Annotations;
+using SharpEmf.Records;
 
 namespace SharpEmf.Enums;
 
@@ -6,6 +7,7 @@ namespace SharpEmf.Enums;
 /// Defines values that uniquely identify records in an EMF metafile.
 /// These values are specified in the <see cref="EnhancedMetafileRecord.Type"/> fields of EMF records
 /// </summary>
+[PublicAPI]
 public enum EmfRecordType : uint
 {
     /// <summary>
@@ -66,4 +68,9 @@ public enum EmfRecordType : uint
     /// Renders the specified path by using the current pen
     /// </summary>
     EMR_STROKEPATH = 0x00000040,
+
+    /// <summary>
+    /// Specifies filling rectangles or triangles with gradients of
+    /// </summary>
+    EMR_GRADIENTFILL = 0x00000076,
 }
