@@ -80,6 +80,11 @@ public enum EmfRecordType : uint
     EMR_STROKEPATH = 0x00000040,
 
     /// <summary>
+    /// Defines one or more Bezier curves based on the current position
+    /// </summary>
+    EMR_POLYBEZIERTO16 = 0x00000058,
+
+    /// <summary>
     /// Specifies filling rectangles or triangles with gradients of
     /// </summary>
     EMR_GRADIENTFILL = 0x00000076,
