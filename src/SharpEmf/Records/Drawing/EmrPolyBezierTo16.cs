@@ -19,7 +19,7 @@ public record EmrPolyBezierTo16 : EnhancedMetafileRecord, IEmfParsable<EmrPolyBe
     public RectL Bounds { get; }
 
     /// <summary>
-    /// Specifies the total number of points.
+    /// Specifies the total number of points in the <see cref="APoints"/> array
     /// <para />
     /// The first curve is drawn from the current position to the third point by using the first two points as control points.
     /// For each subsequent curve, three more points MUST be specified, and the ending point of the previous curve MUST be used as the starting point for the next
