@@ -31,15 +31,15 @@ public abstract record EnhancedMetafileRecord
             EmfRecordType.EMR_HEADER => EmfMetafileHeader.Parse(stream, size),
             EmfRecordType.EMR_EOF => EmrEof.Parse(stream, size),
 
-            EmfRecordType.EMR_SETPIXELV => EmrSetPixelv.Parse(stream, size),
+            EmfRecordType.EMR_SETPIXELV => EmrSetPixelV.Parse(stream, size),
             EmfRecordType.EMR_POLYGON => EmrPolygon.Parse(stream, size),
             EmfRecordType.EMR_ELLIPSE => EmrEllipse.Parse(stream, size),
             EmfRecordType.EMR_RECTANGLE => EmrRectangle.Parse(stream, size),
             EmfRecordType.EMR_ARC => EmrArc.Parse(stream, size),
-            EmfRecordType.EMR_LINETO => EmrLineto.Parse(stream, size),
-            EmfRecordType.EMR_POLYDRAW => EmrPolydraw.Parse(stream, size),
-            EmfRecordType.EMR_FILLPATH => EmrFillpath.Parse(stream, size),
-            EmfRecordType.EMR_STROKEPATH => EmrStrokepath.Parse(stream, size),
+            EmfRecordType.EMR_LINETO => EmrLineTo.Parse(stream, size),
+            EmfRecordType.EMR_POLYDRAW => EmrPolyDraw.Parse(stream, size),
+            EmfRecordType.EMR_FILLPATH => EmrFillPath.Parse(stream, size),
+            EmfRecordType.EMR_STROKEPATH => EmrStrokePath.Parse(stream, size),
             EmfRecordType.EMR_GRADIENTFILL => EmrGradientFill.Parse(stream, size),
 
             _ => SkipRecord(stream, type, size)

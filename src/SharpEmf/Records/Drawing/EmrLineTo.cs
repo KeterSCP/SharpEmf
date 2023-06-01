@@ -7,7 +7,7 @@ namespace SharpEmf.Records.Drawing;
 
 /// <inheritdoc cref="EmfRecordType.EMR_LINETO"/>
 [PublicAPI]
-public record EmrLineto : EnhancedMetafileRecord, IEmfParsable<EmrLineto>
+public record EmrLineTo : EnhancedMetafileRecord, IEmfParsable<EmrLineTo>
 {
     public override EmfRecordType Type => EmfRecordType.EMR_LINETO;
     public override uint Size { get; }
@@ -17,16 +17,16 @@ public record EmrLineto : EnhancedMetafileRecord, IEmfParsable<EmrLineto>
     /// </summary>
     public PointL Point { get; }
 
-    private EmrLineto(uint size, PointL point)
+    private EmrLineTo(uint size, PointL point)
     {
         Size = size;
         Point = point;
     }
 
-    public static EmrLineto Parse(Stream stream, uint size)
+    public static EmrLineTo Parse(Stream stream, uint size)
     {
         var point = PointL.Parse(stream);
 
-        return new EmrLineto(size, point);
+        return new EmrLineTo(size, point);
     }
 }
