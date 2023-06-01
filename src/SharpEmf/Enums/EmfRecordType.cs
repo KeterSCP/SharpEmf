@@ -26,6 +26,11 @@ public enum EmfRecordType : uint
     EMR_POLYGON = 0x00000003,
 
     /// <summary>
+    /// Defines a series of line segments by connecting the points in the specified array
+    /// </summary>
+    EMR_POLYLINE = 0x00000004,
+
+    /// <summary>
     /// This record indicates the end of the metafile
     /// </summary>
     EMR_EOF = 0x0000000E,
