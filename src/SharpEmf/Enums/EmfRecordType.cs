@@ -49,6 +49,11 @@ public enum EmfRecordType : uint
     EMR_RECTANGLE = 0x0000002B,
 
     /// <summary>
+    /// Defines a rectangle with rounded corners. The rectangle is outlined by using the current pen and filled by using the current brush
+    /// </summary>
+    EMR_ROUNDRECT = 0x0000002C,
+
+    /// <summary>
     /// Defines an elliptical arc
     /// </summary>
     EMR_ARC = 0x0000002D,

@@ -35,6 +35,7 @@ public abstract record EnhancedMetafileRecord
             EmfRecordType.EMR_POLYGON => EmrPolygon.Parse(stream, size),
             EmfRecordType.EMR_ELLIPSE => EmrEllipse.Parse(stream, size),
             EmfRecordType.EMR_RECTANGLE => EmrRectangle.Parse(stream, size),
+            EmfRecordType.EMR_ROUNDRECT => EmrRoundRect.Parse(stream, size),
             EmfRecordType.EMR_ARC => EmrArc.Parse(stream, size),
             EmfRecordType.EMR_LINETO => EmrLineTo.Parse(stream, size),
             EmfRecordType.EMR_POLYDRAW => EmrPolyDraw.Parse(stream, size),
