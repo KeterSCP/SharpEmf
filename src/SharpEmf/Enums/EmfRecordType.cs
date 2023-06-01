@@ -13,10 +13,17 @@ public enum EmfRecordType : uint
     /// <summary>
     /// Defines the start of the metafile and specifies its characteristics; its
     /// contents, including the dimensions of the embedded image; the number of records in the metafile;
-    /// and the resolution of the device on which the embedded image was created. These values make it
-    /// possible for the metafile to be device-independent
+    /// and the resolution of the device on which the embedded image was created
     /// </summary>
     EMR_HEADER = 0x00000001,
+
+    /// <summary>
+    /// Defines one or more Bezier curves.
+    /// </summary>
+    /// <remarks>
+    /// Cubic Bezier curves are defined using specified endpoints and control points, and are stroked with the current pen
+    /// </remarks>
+    EMR_POLYBEZIER = 0x00000002,
 
     /// <summary>
     /// Defines a polygon consisting of two or more vertexes connected by straight lines.
