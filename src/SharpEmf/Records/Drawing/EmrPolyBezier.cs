@@ -6,16 +6,20 @@ using SharpEmf.WmfTypes;
 
 namespace SharpEmf.Records.Drawing;
 
-/// <inheritdoc cref="EmfRecordType.EMR_POLYLINE"/>
+/// <inheritdoc cref="EmfRecordType.EMR_POLYBEZIER"/>
 [PublicAPI]
-public record EmrPolyLine : EnhancedMetafileRecord, IEmfParsable<EmrPolyLine>
+public record EmrPolyBezier : EnhancedMetafileRecord, IEmfParsable<EmrPolyBezier>
 {
-    public override EmfRecordType Type => EmfRecordType.EMR_POLYLINE;
+    public override EmfRecordType Type => EmfRecordType.EMR_POLYBEZIER;
     public override uint Size { get; }
 
     /// <summary>
     /// Specifies the inclusive-inclusive bounding rectangle in logical units
     /// </summary>
+    /// <remarks>
+    /// This value MUST be one more than three times the number of curves to be drawn because each Bezier
+    /// curve requires two control points and an endpoint, and the initial curve requires an additional starting point
+    /// </remarks>
     public RectL Bounds { get; }
 
     /// <summary>
@@ -24,11 +28,11 @@ public record EmrPolyLine : EnhancedMetafileRecord, IEmfParsable<EmrPolyLine>
     public uint Count { get; }
 
     /// <summary>
-    /// Specifies the point data, in logical units
+    /// Specifies the endpoints and control points of the Bezier curves in logical units
     /// </summary>
     public IReadOnlyList<PointL> APoints { get; }
 
-    private EmrPolyLine(uint size, RectL bounds, uint count, IReadOnlyList<PointL> aPoints)
+    private EmrPolyBezier(uint size, RectL bounds, uint count, IReadOnlyList<PointL> aPoints)
     {
         Size = size;
         Bounds = bounds;
@@ -36,18 +40,17 @@ public record EmrPolyLine : EnhancedMetafileRecord, IEmfParsable<EmrPolyLine>
         APoints = aPoints;
     }
 
-    public static EmrPolyLine Parse(Stream stream, uint size)
+    public static EmrPolyBezier Parse(Stream stream, uint size)
     {
         var bounds = RectL.Parse(stream);
         // TODO: according to the documentation, number of maximum points allowed depends on line width and on the fact if device supports wideline
         var count = stream.ReadUInt32();
-
-        var points = new PointL[(int)count];
+        var aPoints = new PointL[count];
         for (var i = 0; i < count; i++)
         {
-            points[i] = PointL.Parse(stream);
+            aPoints[i] = PointL.Parse(stream);
         }
 
-        return new EmrPolyLine(size, bounds, count, points);
+        return new EmrPolyBezier(size, bounds, count, aPoints);
     }
 }
