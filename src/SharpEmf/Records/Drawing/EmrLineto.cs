@@ -1,6 +1,5 @@
 ﻿using JetBrains.Annotations;
 using SharpEmf.Enums;
-using SharpEmf.Extensions;
 using SharpEmf.Interfaces;
 using SharpEmf.WmfTypes;
 
@@ -26,9 +25,7 @@ public record EmrLineto : EnhancedMetafileRecord, IEmfParsable<EmrLineto>
 
     public static EmrLineto Parse(Stream stream, uint size)
     {
-        var point = new PointL(
-            x: stream.ReadInt32(),
-            y: stream.ReadInt32());
+        var point = PointL.Parse(stream);
 
         return new EmrLineto(size, point);
     }

@@ -49,6 +49,11 @@ public enum EmfRecordType : uint
     EMR_RECTANGLE = 0x0000002B,
 
     /// <summary>
+    /// Defines an elliptical arc
+    /// </summary>
+    EMR_ARC = 0x0000002D,
+
+    /// <summary>
     /// Defines a line from the current drawing position up to, but not including,
     /// the specified point. It resets the current drawing position to the specified point
     /// </summary>

@@ -1,4 +1,5 @@
 ﻿using JetBrains.Annotations;
+using SharpEmf.Extensions;
 
 namespace SharpEmf.WmfTypes;
 
@@ -28,11 +29,17 @@ public readonly struct RectL
     /// </summary>
     public int Bottom { get; }
 
-    public RectL(int left, int top, int right, int bottom)
+    private RectL(int left, int top, int right, int bottom)
     {
         Left = left;
         Top = top;
         Right = right;
         Bottom = bottom;
     }
+
+    public static RectL Parse(Stream stream) => new(
+        left: stream.ReadInt32(),
+        top: stream.ReadInt32(),
+        right: stream.ReadInt32(),
+        bottom: stream.ReadInt32());
 }

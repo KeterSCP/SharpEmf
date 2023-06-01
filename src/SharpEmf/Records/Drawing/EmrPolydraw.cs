@@ -44,11 +44,7 @@ public record EmrPolydraw : EnhancedMetafileRecord, IEmfParsable<EmrPolydraw>
 
     public static EmrPolydraw Parse(Stream stream, uint size)
     {
-        var bounds = new RectL(
-            left: stream.ReadInt32(),
-            top: stream.ReadInt32(),
-            right: stream.ReadInt32(),
-            bottom: stream.ReadInt32());
+        var bounds = RectL.Parse(stream);
 
         var count = stream.ReadUInt32();
         var points = new PointL[(int)count];
@@ -56,9 +52,7 @@ public record EmrPolydraw : EnhancedMetafileRecord, IEmfParsable<EmrPolydraw>
 
         for (var i = 0; i < count; i++)
         {
-            points[i] = new PointL(
-                x: stream.ReadInt32(),
-                y: stream.ReadInt32());
+            points[i] = PointL.Parse(stream);
         }
 
         for (var i = 0; i < count; i++)

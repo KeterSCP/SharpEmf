@@ -116,16 +116,8 @@ public record EmfMetafileHeader : EnhancedMetafileRecord, IEmfParsable<EmfMetafi
 
     public static EmfMetafileHeader Parse(Stream stream, uint size)
     {
-        var bounds = new RectL(
-            left: stream.ReadInt32(),
-            top: stream.ReadInt32(),
-            right: stream.ReadInt32(),
-            bottom: stream.ReadInt32());
-        var frame = new RectL(
-            left: stream.ReadInt32(),
-            top: stream.ReadInt32(),
-            right: stream.ReadInt32(),
-            bottom: stream.ReadInt32());
+        var bounds = RectL.Parse(stream);
+        var frame = RectL.Parse(stream);
 
         var signature = stream.ReadEnum<FormatSignature>();
         if (signature != FormatSignature.ENHMETA_SIGNATURE)
