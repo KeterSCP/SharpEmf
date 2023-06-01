@@ -112,6 +112,7 @@ public record EmrGradientFill : EnhancedMetafileRecord, IEmfParsable<EmrGradient
                 var bytesAmount = (int)nTri * 4;
                 vertexPadding = new byte[bytesAmount];
                 stream.ReadExactly(vertexPadding);
+                Array.Reverse(vertexPadding);
                 break;
             }
         }
