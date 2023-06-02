@@ -101,6 +101,18 @@ public enum EmfRecordType : uint
     EMR_ARC = 0x0000002D,
 
     /// <summary>
+    /// Defines a chord, which is a region bounded by the intersection of an ellipse and a line segment, called a secant
+    /// </summary>
+    /// <remarks>
+    /// The chord is outlined by using the current pen and filled by using the current brush
+    /// <para />
+    /// If the starting point and ending point of the curve are the same, a complete ellipse is drawn
+    /// <para />
+    /// The current drawing position is neither used nor updated by processing this record
+    /// </remarks>
+    EMR_CHORD = 0x0000002E,
+
+    /// <summary>
     /// Defines a pie-shaped wedge bounded by the intersection of an ellipse and two radials
     /// </summary>
     /// <remarks>

@@ -105,16 +105,12 @@ public record EmrGradientFill : EnhancedMetafileRecord, IEmfParsable<EmrGradient
         }
 
         byte[]? vertexPadding = null;
-        switch (ulMode)
+        if (ulMode is GradientFill.GRADIENT_FILL_RECT_H or GradientFill.GRADIENT_FILL_RECT_V)
         {
-            case GradientFill.GRADIENT_FILL_RECT_H or GradientFill.GRADIENT_FILL_RECT_V:
-            {
-                var bytesAmount = (int)nTri * 4;
-                vertexPadding = new byte[bytesAmount];
-                stream.ReadExactly(vertexPadding);
-                Array.Reverse(vertexPadding);
-                break;
-            }
+            var bytesAmount = (int)nTri * 4;
+            vertexPadding = new byte[bytesAmount];
+            stream.ReadExactly(vertexPadding);
+            Array.Reverse(vertexPadding);
         }
 
         return new EmrGradientFill(size, bounds, nVer, nTri, ulMode, vertexObjects, vertexIndexes, vertexPadding);
