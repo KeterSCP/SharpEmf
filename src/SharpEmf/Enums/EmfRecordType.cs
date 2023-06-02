@@ -40,6 +40,14 @@ public enum EmfRecordType : uint
     EMR_POLYLINE = 0x00000004,
 
     /// <summary>
+    /// Defines one or more Bezier curves based upon the current drawing position
+    /// </summary>
+    /// <remarks>
+    /// The Bezier curves SHOULD be drawn using the current pen
+    /// </remarks>
+    EMR_POLYBEZIERTO = 0x00000005,
+
+    /// <summary>
     ///  This record defines one or more straight lines based upon the current drawing position
     /// </summary>
     /// <remarks>
