@@ -43,11 +43,20 @@ public enum EmfRecordType : uint
     ///  This record defines one or more straight lines based upon the current drawing position
     /// </summary>
     /// <remarks>
-    /// A line is drawn from the current drawing position to the first point specified by the points
-    /// field by using the current pen. For each additional line, drawing is performed from the ending
-    /// point of the previous line to the next point specified by points
+    /// A line is drawn from the current drawing position to the first point specified by the points field by using the current pen <para />
+    /// For each additional line, drawing is performed from the ending point of the previous line to the next point specified by points
     /// </remarks>
     EMR_POLYLINETO = 0x00000006,
+
+    /// <summary>
+    /// Defines multiple series of connected line segments
+    /// </summary>
+    /// <remarks>
+    /// The line segments are drawn by using the current pen <para />
+    /// The figures formed by the segments are not filled <para />
+    /// The current position is neither used nor updated by this record
+    /// </remarks>
+    EMR_POLYPOLYLINE = 0x00000007,
 
     /// <summary>
     /// This record indicates the end of the metafile
@@ -104,10 +113,8 @@ public enum EmfRecordType : uint
     /// Defines a chord, which is a region bounded by the intersection of an ellipse and a line segment, called a secant
     /// </summary>
     /// <remarks>
-    /// The chord is outlined by using the current pen and filled by using the current brush
-    /// <para />
-    /// If the starting point and ending point of the curve are the same, a complete ellipse is drawn
-    /// <para />
+    /// The chord is outlined by using the current pen and filled by using the current brush <para />
+    /// If the starting point and ending point of the curve are the same, a complete ellipse is drawn <para />
     /// The current drawing position is neither used nor updated by processing this record
     /// </remarks>
     EMR_CHORD = 0x0000002E,
