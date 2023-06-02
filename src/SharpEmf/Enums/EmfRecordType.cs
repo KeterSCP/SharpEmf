@@ -121,6 +121,14 @@ public enum EmfRecordType : uint
     EMR_LINETO = 0x00000036,
 
     /// <summary>
+    /// Defines an elliptical arc
+    /// </summary>
+    /// <remarks>
+    /// It resets the current position to the endpoint of the arc
+    /// </remarks>
+    EMR_ARCTO = 0x00000037,
+
+    /// <summary>
     /// Defines a set of line segments and Bezier curves
     /// </summary>
     EMR_POLYDRAW = 0x00000038,
