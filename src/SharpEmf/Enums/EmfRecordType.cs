@@ -26,10 +26,12 @@ public enum EmfRecordType : uint
     EMR_POLYBEZIER = 0x00000002,
 
     /// <summary>
-    /// Defines a polygon consisting of two or more vertexes connected by straight lines.
+    /// Defines a polygon consisting of two or more vertexes connected by straight lines
+    /// </summary>
+    /// <remarks>
     /// The polygon is outlined by using the current pen and filled by using the current brush and polygon fill mode.
     /// The polygon is closed automatically by drawing a line from the last vertex to the first
-    /// </summary>
+    /// </remarks>
     EMR_POLYGON = 0x00000003,
 
     /// <summary>
@@ -68,27 +70,49 @@ public enum EmfRecordType : uint
     EMR_ANGLEARC = 0x00000029,
 
     /// <summary>
-    /// Defines an ellipse. The center of the ellipse is the center of the specified bounding rectangle.
-    /// The ellipse is outlined by using the current pen and is filled by using the current brush
+    /// Defines an ellipse. The center of the ellipse is the center of the specified bounding rectangle
     /// </summary>
+    /// <remarks>
+    /// The ellipse is outlined by using the current pen and is filled by using the current brush
+    /// </remarks>
     EMR_ELLIPSE = 0x0000002A,
 
     /// <summary>
-    /// Defines a rectangle. The rectangle is outlined by using the current pen and filled by using the current brush <para />
+    /// Defines a rectangle
+    /// </summary>
+    /// <remarks>
+    /// The rectangle is outlined by using the current pen and filled by using the current brush <para />
     /// The current drawing position is neither used nor updated by this record. <para />
     /// If a PS_NULL pen is used, the dimensions of the rectangle are 1 pixel less in height and 1 pixel less in width
-    /// </summary>
+    /// </remarks>
     EMR_RECTANGLE = 0x0000002B,
 
     /// <summary>
-    /// Defines a rectangle with rounded corners. The rectangle is outlined by using the current pen and filled by using the current brush
+    /// Defines a rectangle with rounded corners
     /// </summary>
+    /// <remarks>
+    /// The rectangle is outlined by using the current pen and filled by using the current brush
+    /// </remarks>
     EMR_ROUNDRECT = 0x0000002C,
 
     /// <summary>
     /// Defines an elliptical arc
     /// </summary>
     EMR_ARC = 0x0000002D,
+
+    /// <summary>
+    /// Defines a pie-shaped wedge bounded by the intersection of an ellipse and two radials
+    /// </summary>
+    /// <remarks>
+    /// The pie is outlined by using the current pen and filled by using the current brush
+    /// <para />
+    /// The curve of the pie is defined by an ellipse that fits the specified bounding rectangle.
+    /// The curve begins at the point where the ellipse intersects the first radial and extends counterclockwise to the
+    /// point where the ellipse intersects the second radial
+    /// <para />
+    /// The current drawing position is neither used nor updated by this record
+    /// </remarks>
+    EMR_PIE = 0x0000002F,
 
     /// <summary>
     /// Defines a line from the current drawing position up to, but not including,
