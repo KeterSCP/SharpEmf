@@ -151,6 +151,12 @@ public enum EmfRecordType : uint
     EMR_FILLPATH = 0x0000003E,
 
     /// <summary>
+    /// Closes any open figures in a path, strokes the outline of the path by using the current pen,
+    /// and fills its interior by using the current brush
+    /// </summary>
+    EMR_STROKEANDFILLPATH = 0x0000003F,
+
+    /// <summary>
     /// Renders the specified path by using the current pen
     /// </summary>
     EMR_STROKEPATH = 0x00000040,

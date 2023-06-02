@@ -47,6 +47,7 @@ public abstract record EnhancedMetafileRecord
             EmfRecordType.EMR_ARCTO => EmrArcTo.Parse(stream, size),
             EmfRecordType.EMR_POLYDRAW => EmrPolyDraw.Parse(stream, size),
             EmfRecordType.EMR_FILLPATH => EmrFillPath.Parse(stream, size),
+            EmfRecordType.EMR_STROKEANDFILLPATH => EmrStrokeAndFillPath.Parse(stream, size),
             EmfRecordType.EMR_STROKEPATH => EmrStrokePath.Parse(stream, size),
             EmfRecordType.EMR_POLYBEZIERTO16 => EmrPolyBezierTo16.Parse(stream, size),
             EmfRecordType.EMR_GRADIENTFILL => EmrGradientFill.Parse(stream, size),
