@@ -37,6 +37,7 @@ public abstract record EnhancedMetafileRecord
             EmfRecordType.EMR_POLYBEZIERTO => EmrPolyBezierTo.Parse(stream, size),
             EmfRecordType.EMR_POLYLINETO => EmrPolyLineTo.Parse(stream, size),
             EmfRecordType.EMR_POLYPOLYLINE => EmrPolyPolyLine.Parse(stream, size),
+            EmfRecordType.EMR_POLYPOLYGON => EmrPolyPolygon.Parse(stream, size),
             EmfRecordType.EMR_SETPIXELV => EmrSetPixelV.Parse(stream, size),
             EmfRecordType.EMR_ANGLEARC => EmrAngleArc.Parse(stream, size),
             EmfRecordType.EMR_ELLIPSE => EmrEllipse.Parse(stream, size),

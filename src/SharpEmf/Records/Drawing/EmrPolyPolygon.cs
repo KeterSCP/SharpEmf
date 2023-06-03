@@ -1,0 +1,80 @@
+﻿using JetBrains.Annotations;
+using SharpEmf.Enums;
+using SharpEmf.Extensions;
+using SharpEmf.Interfaces;
+using SharpEmf.WmfTypes;
+
+namespace SharpEmf.Records.Drawing;
+
+/// <inheritdoc cref="EmfRecordType.EMR_POLYPOLYGON"/>
+[PublicAPI]
+public record EmrPolyPolygon : EnhancedMetafileRecord, IEmfParsable<EmrPolyPolygon>
+{
+    public override EmfRecordType Type => EmfRecordType.EMR_POLYPOLYGON;
+    public override uint Size { get; }
+
+    /// <summary>
+    /// Specifies the bounding rectangle in logical units
+    /// </summary>
+    public RectL Bounds { get; }
+
+    /// <summary>
+    /// Specifies the number of polygons
+    /// </summary>
+    public uint NumberOfPolygons { get; }
+
+    /// <summary>
+    /// Specifies the total number of points in all polygons
+    /// </summary>
+    /// <remarks>
+    /// Any extra points MUST be ignored. To draw a line with more points, the data SHOULD be divided
+    /// into groups that have less than the maximum number of points, and an EMR_POLYPOLYGON
+    /// operation SHOULD be performed for each group of point
+    /// </remarks>
+    public uint Count { get; }
+
+    /// <summary>
+    /// Specifies the point count for each polygon
+    /// </summary>
+    public IReadOnlyList<uint> PolygonPointCount { get; }
+
+    /// <summary>
+    /// Specifies the points for all polygons in logical units
+    /// </summary>
+    /// <remarks>
+    /// The number of points is specified by the <see cref="Count"/> field value
+    /// </remarks>
+    public IReadOnlyList<PointL> APoints { get; }
+
+    private EmrPolyPolygon(uint size, RectL bounds, uint numberOfPolygons, uint count, IReadOnlyList<uint> polygonPointCount, IReadOnlyList<PointL> aPoints)
+    {
+        Size = size;
+        Bounds = bounds;
+        NumberOfPolygons = numberOfPolygons;
+        Count = count;
+        PolygonPointCount = polygonPointCount;
+        APoints = aPoints;
+    }
+
+    public static EmrPolyPolygon Parse(Stream stream, uint size)
+    {
+        var bounds = RectL.Parse(stream);
+        var numberOfPolygons = stream.ReadUInt32();
+        // TODO: according to the documentation, number of maximum points allowed depends on line width and on the fact if device supports wideline
+        var count = stream.ReadUInt32();
+
+        var polygonPointCount = new uint[(int)numberOfPolygons];
+        for (var i = 0; i < numberOfPolygons; i++)
+        {
+            polygonPointCount[i] = stream.ReadUInt32();
+        }
+
+        var points = new PointL[(int)count];
+        for (var i = 0; i < count; i++)
+        {
+            points[i] = PointL.Parse(stream);
+        }
+
+        return new EmrPolyPolygon(size, bounds, numberOfPolygons, count, polygonPointCount, points);
+    }
+}
