@@ -48,7 +48,7 @@ public enum EmfRecordType : uint
     EMR_POLYBEZIERTO = 0x00000005,
 
     /// <summary>
-    ///  This record defines one or more straight lines based upon the current drawing position
+    /// Defines one or more straight lines based upon the current drawing position
     /// </summary>
     /// <remarks>
     /// A line is drawn from the current drawing position to the first point specified by the points field by using the current pen <para />
@@ -67,7 +67,16 @@ public enum EmfRecordType : uint
     EMR_POLYPOLYLINE = 0x00000007,
 
     /// <summary>
-    /// This record indicates the end of the metafile
+    /// Defines a series of closed polygons
+    /// </summary>
+    /// <remarks>
+    /// Each polygon is outlined by using the current pen and filled by using the current brush and polygon fill mode <para />
+    /// The polygons defined by this record can overlap
+    /// </remarks>
+    EMR_POLYPOLYGON = 0x00000008,
+
+    /// <summary>
+    /// Indicates the end of the metafile
     /// </summary>
     EMR_EOF = 0x0000000E,
 
