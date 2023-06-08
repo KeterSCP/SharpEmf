@@ -194,14 +194,13 @@ public enum EmfRecordType : uint
     /// </remarks>
     EMR_FILLRGN = 0x00000047,
 
-    /// <summary>
-    /// Defines a series of line segments by connecting the points in the specified array
-    /// </summary>
+    /// <inheritdoc cref="EMR_POLYGON"/>
+    EMR_POLYGON16 = 0x00000056,
+
+    /// <inheritdoc cref="EMR_POLYLINE"/>
     EMR_POLYLINE16 = 0x00000057,
 
-    /// <summary>
-    /// Defines one or more Bezier curves based on the current position
-    /// </summary>
+    /// <inheritdoc cref="EMR_POLYBEZIER"/>
     EMR_POLYBEZIERTO16 = 0x00000058,
 
     /// <summary>
