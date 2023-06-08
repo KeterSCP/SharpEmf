@@ -185,6 +185,15 @@ public enum EmfRecordType : uint
     /// </summary>
     EMR_STROKEPATH = 0x00000040,
 
+    // TODO: add cref to Regions
+    /// <summary>
+    /// Fills the specified region by using the specified brush
+    /// </summary>
+    /// <remarks>
+    /// The current clipping regions used by this record are maintained in a Regions state element in the playback device context
+    /// </remarks>
+    EMR_FILLRGN = 0x00000047,
+
     /// <summary>
     /// Defines one or more Bezier curves based on the current position
     /// </summary>

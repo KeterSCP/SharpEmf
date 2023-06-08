@@ -1,4 +1,5 @@
 ﻿using JetBrains.Annotations;
+using SharpEmf.Exceptions;
 
 namespace SharpEmf.Objects;
 
@@ -39,7 +40,7 @@ public readonly struct ColorRef
 
         if (reserved != 0x00)
         {
-            throw new Exception($"Reserved byte must be 0x00, but was {reserved}");
+            throw new EmfParseException($"Reserved byte must be 0x00, but was {reserved}");
         }
 
         return new ColorRef((byte)red, (byte)green, (byte)blue);

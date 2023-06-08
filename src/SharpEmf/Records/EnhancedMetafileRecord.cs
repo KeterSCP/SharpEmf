@@ -26,6 +26,11 @@ public abstract record EnhancedMetafileRecord
         var type = stream.ReadEnum<EmfRecordType>();
         var size = stream.ReadUInt32();
 
+        if (size % 4 != 0)
+        {
+            throw new EmfParseException($"Record size is not a multiple of 4: {size} bytes");
+        }
+
         return type switch
         {
             EmfRecordType.EMR_HEADER => EmfMetafileHeader.Parse(stream, size),
@@ -52,6 +57,7 @@ public abstract record EnhancedMetafileRecord
             EmfRecordType.EMR_FILLPATH => EmrFillPath.Parse(stream, size),
             EmfRecordType.EMR_STROKEANDFILLPATH => EmrStrokeAndFillPath.Parse(stream, size),
             EmfRecordType.EMR_STROKEPATH => EmrStrokePath.Parse(stream, size),
+            EmfRecordType.EMR_FILLRGN => EmrFillRgn.Parse(stream, size),
             EmfRecordType.EMR_POLYBEZIERTO16 => EmrPolyBezierTo16.Parse(stream, size),
             EmfRecordType.EMR_GRADIENTFILL => EmrGradientFill.Parse(stream, size),
 
