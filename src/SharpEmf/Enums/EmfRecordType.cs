@@ -195,6 +195,11 @@ public enum EmfRecordType : uint
     EMR_FILLRGN = 0x00000047,
 
     /// <summary>
+    /// Defines a series of line segments by connecting the points in the specified array
+    /// </summary>
+    EMR_POLYLINE16 = 0x00000057,
+
+    /// <summary>
     /// Defines one or more Bezier curves based on the current position
     /// </summary>
     EMR_POLYBEZIERTO16 = 0x00000058,
