@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using JetBrains.Annotations;
 using SharpEmf.Enums;
+using SharpEmf.Exceptions;
 using SharpEmf.Extensions;
 using SharpEmf.Interfaces;
 using SharpEmf.WmfTypes;
@@ -122,7 +123,7 @@ public record EmfMetafileHeader : EnhancedMetafileRecord, IEmfParsable<EmfMetafi
         var signature = stream.ReadEnum<FormatSignature>();
         if (signature != FormatSignature.ENHMETA_SIGNATURE)
         {
-            throw new Exception($"Invalid signature of EMF header: {signature}");
+            throw new EmfParseException($"Invalid signature of EMF header: {signature}");
         }
 
         var version = stream.ReadEnum<MetafileVersion>();
@@ -137,7 +138,7 @@ public record EmfMetafileHeader : EnhancedMetafileRecord, IEmfParsable<EmfMetafi
         var reserved = stream.ReadUInt16();
         if (reserved != 0)
         {
-            throw new Exception($"Invalid value of reserved field in EMF header. Expected: 0, Actual: {reserved}");
+            throw new EmfParseException($"Invalid value of reserved field in EMF header. Expected: 0, Actual: {reserved}");
         }
 
         var nDescription = stream.ReadUInt32();

@@ -1,5 +1,6 @@
 ﻿using JetBrains.Annotations;
 using SharpEmf.Enums;
+using SharpEmf.Exceptions;
 using SharpEmf.Extensions;
 using SharpEmf.Interfaces;
 using SharpEmf.WmfTypes;
@@ -63,7 +64,7 @@ public record EmrPolyPolyLine : EnhancedMetafileRecord, IEmfParsable<EmrPolyPoly
             var polylinePointCountValue = stream.ReadUInt32();
             if (polylinePointCountValue < 0x00000002)
             {
-                throw new Exception($"Each value in {nameof(APolylinePointCount)} MUST be >= 0x00000002");
+                throw new EmfParseException($"Each value in {nameof(APolylinePointCount)} MUST be >= 0x00000002");
             }
             polylinePointCount[i] = polylinePointCountValue;
         }
