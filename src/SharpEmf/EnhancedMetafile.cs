@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using SharpEmf.Exceptions;
 using SharpEmf.Records;
 using SharpEmf.Records.Control.Eof;
