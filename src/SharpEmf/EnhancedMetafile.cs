@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using JetBrains.Annotations;
+using SharpEmf.Exceptions;
 using SharpEmf.Records;
 using SharpEmf.Records.Control.Eof;
 using SharpEmf.Records.Control.Header;
@@ -50,7 +51,6 @@ public sealed class EnhancedMetafile
             records.Add(record);
         }
 
-        // TODO: handle this nicely
-        throw new UnreachableException();
+        throw new EmfParseException("EOF record not found");
     }
 }
