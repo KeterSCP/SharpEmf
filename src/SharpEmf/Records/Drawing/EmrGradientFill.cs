@@ -12,9 +12,6 @@ namespace SharpEmf.Records.Drawing;
 [PublicAPI]
 public record EmrGradientFill : EnhancedMetafileRecord, IEmfParsable<EmrGradientFill>
 {
-    public override EmfRecordType Type => EmfRecordType.EMR_GRADIENTFILL;
-    public override uint Size { get; }
-
     /// <summary>
     /// Specifies the inclusive-inclusive bounding rectangle in logical units
     /// </summary>
@@ -60,6 +57,7 @@ public record EmrGradientFill : EnhancedMetafileRecord, IEmfParsable<EmrGradient
     public IReadOnlyList<byte>? VertexPadding { get; }
 
     private EmrGradientFill(
+        EmfRecordType recordType,
         uint size,
         RectL bounds,
         uint nVer,
@@ -67,9 +65,8 @@ public record EmrGradientFill : EnhancedMetafileRecord, IEmfParsable<EmrGradient
         GradientFill ulMode,
         IReadOnlyList<TriVertex> vertexObjects,
         IReadOnlyList<IGradientShape> vertexIndexes,
-        IReadOnlyList<byte>? vertexPadding)
+        IReadOnlyList<byte>? vertexPadding) : base(recordType, size)
     {
-        Size = size;
         Bounds = bounds;
         NVer = nVer;
         NTri = nTri;
@@ -79,7 +76,7 @@ public record EmrGradientFill : EnhancedMetafileRecord, IEmfParsable<EmrGradient
         VertexPadding = vertexPadding;
     }
 
-    public static EmrGradientFill Parse(Stream stream, uint size)
+    public static EmrGradientFill Parse(Stream stream, EmfRecordType recordType, uint size)
     {
         var bounds = RectL.Parse(stream);
 
@@ -113,6 +110,6 @@ public record EmrGradientFill : EnhancedMetafileRecord, IEmfParsable<EmrGradient
             Array.Reverse(vertexPadding);
         }
 
-        return new EmrGradientFill(size, bounds, nVer, nTri, ulMode, vertexObjects, vertexIndexes, vertexPadding);
+        return new EmrGradientFill(recordType, size, bounds, nVer, nTri, ulMode, vertexObjects, vertexIndexes, vertexPadding);
     }
 }

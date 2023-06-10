@@ -17,9 +17,6 @@ public record EmfMetafileHeader : EnhancedMetafileRecord, IEmfParsable<EmfMetafi
     /// </summary>
     public const int FixedSize = 88;
 
-    public override EmfRecordType Type => EmfRecordType.EMR_HEADER;
-    public override uint Size { get; }
-
     /// <summary>
     /// Specifies the rectangular inclusive-inclusive bounds in logical units of the smallest rectangle that can be drawn around the image stored in the metafile
     /// </summary>
@@ -87,6 +84,7 @@ public record EmfMetafileHeader : EnhancedMetafileRecord, IEmfParsable<EmfMetafi
 
     protected EmfMetafileHeader(
         uint size,
+        EmfRecordType recordType,
         RectL bounds,
         RectL frame,
         MetafileVersion version,
@@ -98,9 +96,8 @@ public record EmfMetafileHeader : EnhancedMetafileRecord, IEmfParsable<EmfMetafi
         uint palEntries,
         SizeL device,
         SizeL millimeters,
-        string? description)
+        string? description) : base(recordType, size)
     {
-        Size = size;
         Bounds = bounds;
         Frame = frame;
         Version = version;
@@ -115,7 +112,7 @@ public record EmfMetafileHeader : EnhancedMetafileRecord, IEmfParsable<EmfMetafi
         Description = description;
     }
 
-    public static EmfMetafileHeader Parse(Stream stream, uint size)
+    public static EmfMetafileHeader Parse(Stream stream, EmfRecordType recordType, uint size)
     {
         var bounds = RectL.Parse(stream);
         var frame = RectL.Parse(stream);
@@ -155,6 +152,7 @@ public record EmfMetafileHeader : EnhancedMetafileRecord, IEmfParsable<EmfMetafi
             cy: stream.ReadUInt32());
 
         var baseHeader = new EmfMetafileHeader(
+            recordType: recordType,
             size: size,
             bounds: bounds,
             frame: frame,

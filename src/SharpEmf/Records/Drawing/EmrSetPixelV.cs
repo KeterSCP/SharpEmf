@@ -10,9 +10,6 @@ namespace SharpEmf.Records.Drawing;
 [PublicAPI]
 public record EmrSetPixelV : EnhancedMetafileRecord, IEmfParsable<EmrSetPixelV>
 {
-    public override EmfRecordType Type => EmfRecordType.EMR_SETPIXELV;
-    public override uint Size { get; }
-
     /// <summary>
     /// Specifies the logical coordinates for the pixel
     /// </summary>
@@ -23,19 +20,18 @@ public record EmrSetPixelV : EnhancedMetafileRecord, IEmfParsable<EmrSetPixelV>
     /// </summary>
     public ColorRef Color { get; }
 
-    private EmrSetPixelV(uint size, PointL pixel, ColorRef color)
+    private EmrSetPixelV(EmfRecordType recordType, uint size, PointL pixel, ColorRef color) : base(recordType, size)
     {
-        Size = size;
         Pixel = pixel;
         Color = color;
     }
 
-    public static EmrSetPixelV Parse(Stream stream, uint size)
+    public static EmrSetPixelV Parse(Stream stream, EmfRecordType recordType, uint size)
     {
         var pixel = PointL.Parse(stream);
 
         var color = ColorRef.Parse(stream);
 
-        return new EmrSetPixelV(size, pixel, color);
+        return new EmrSetPixelV(recordType, size, pixel, color);
     }
 }

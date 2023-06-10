@@ -9,9 +9,6 @@ namespace SharpEmf.Records.Drawing;
 [PublicAPI]
 public record EmrRoundRect : EnhancedMetafileRecord, IEmfParsable<EmrRoundRect>
 {
-    public override EmfRecordType Type => EmfRecordType.EMR_ROUNDRECT;
-    public override uint Size { get; }
-
     /// <summary>
     /// Specifies the inclusive-inclusive bounding rectangle in logical units
     /// </summary>
@@ -22,18 +19,17 @@ public record EmrRoundRect : EnhancedMetafileRecord, IEmfParsable<EmrRoundRect>
     /// </summary>
     public PointL Corner { get; }
 
-    private EmrRoundRect(uint size, RectL box, PointL corner)
+    private EmrRoundRect(EmfRecordType recordType, uint size, RectL box, PointL corner) : base(recordType, size)
     {
-        Size = size;
         Box = box;
         Corner = corner;
     }
 
-    public static EmrRoundRect Parse(Stream stream, uint size)
+    public static EmrRoundRect Parse(Stream stream, EmfRecordType recordType, uint size)
     {
         var box = RectL.Parse(stream);
         var corner = PointL.Parse(stream);
 
-        return new EmrRoundRect(size, box, corner);
+        return new EmrRoundRect(recordType, size, box, corner);
     }
 }

@@ -10,9 +10,6 @@ namespace SharpEmf.Records.Drawing;
 [PublicAPI]
 public record EmrPolyBezier : EnhancedMetafileRecord, IEmfParsable<EmrPolyBezier>
 {
-    public override EmfRecordType Type => EmfRecordType.EMR_POLYBEZIER;
-    public override uint Size { get; }
-
     /// <summary>
     /// Specifies the inclusive-inclusive bounding rectangle in logical units
     /// </summary>
@@ -32,15 +29,14 @@ public record EmrPolyBezier : EnhancedMetafileRecord, IEmfParsable<EmrPolyBezier
     /// </summary>
     public IReadOnlyList<PointL> APoints { get; }
 
-    private EmrPolyBezier(uint size, RectL bounds, uint count, IReadOnlyList<PointL> aPoints)
+    private EmrPolyBezier(EmfRecordType recordType, uint size, RectL bounds, uint count, IReadOnlyList<PointL> aPoints) : base(recordType, size)
     {
-        Size = size;
         Bounds = bounds;
         Count = count;
         APoints = aPoints;
     }
 
-    public static EmrPolyBezier Parse(Stream stream, uint size)
+    public static EmrPolyBezier Parse(Stream stream, EmfRecordType recordType, uint size)
     {
         var bounds = RectL.Parse(stream);
         // TODO: according to the documentation, number of maximum points allowed depends on line width and on the fact if device supports wideline
@@ -51,6 +47,6 @@ public record EmrPolyBezier : EnhancedMetafileRecord, IEmfParsable<EmrPolyBezier
             aPoints[i] = PointL.Parse(stream);
         }
 
-        return new EmrPolyBezier(size, bounds, count, aPoints);
+        return new EmrPolyBezier(recordType, size, bounds, count, aPoints);
     }
 }

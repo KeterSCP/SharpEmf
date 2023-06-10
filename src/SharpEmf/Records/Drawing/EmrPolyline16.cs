@@ -10,9 +10,6 @@ namespace SharpEmf.Records.Drawing;
 [PublicAPI]
 public record EmrPolyline16 : EnhancedMetafileRecord, IEmfParsable<EmrPolyline16>
 {
-    public override EmfRecordType Type => EmfRecordType.EMR_POLYLINE16;
-    public override uint Size { get; }
-
     /// <summary>
     /// Specifies the bounding rectangle in logical units
     /// </summary>
@@ -28,15 +25,14 @@ public record EmrPolyline16 : EnhancedMetafileRecord, IEmfParsable<EmrPolyline16
     /// </summary>
     public IReadOnlyList<PointS> APoints { get; }
 
-    private EmrPolyline16(uint size, RectL bounds, uint count, IReadOnlyList<PointS> aPoints)
+    private EmrPolyline16(EmfRecordType recordType, uint size, RectL bounds, uint count, IReadOnlyList<PointS> aPoints) : base(recordType, size)
     {
-        Size = size;
         Bounds = bounds;
         Count = count;
         APoints = aPoints;
     }
 
-    public static EmrPolyline16 Parse(Stream stream, uint size)
+    public static EmrPolyline16 Parse(Stream stream, EmfRecordType recordType, uint size)
     {
         var bounds = RectL.Parse(stream);
         var count = stream.ReadUInt32();
@@ -46,6 +42,6 @@ public record EmrPolyline16 : EnhancedMetafileRecord, IEmfParsable<EmrPolyline16
             points[i] = PointS.Parse(stream);
         }
 
-        return new EmrPolyline16(size, bounds, count, points);
+        return new EmrPolyline16(recordType, size, bounds, count, points);
     }
 }

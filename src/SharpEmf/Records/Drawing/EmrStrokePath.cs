@@ -9,24 +9,19 @@ namespace SharpEmf.Records.Drawing;
 [PublicAPI]
 public record EmrStrokePath : EnhancedMetafileRecord, IEmfParsable<EmrStrokePath>
 {
-    public override EmfRecordType Type => EmfRecordType.EMR_STROKEPATH;
-    public override uint Size { get; }
-
     /// <summary>
     /// Specifies the bounding rectangle in logical units
     /// </summary>
     public RectL Bounds { get; }
 
-    private EmrStrokePath(uint size, RectL bounds)
+    private EmrStrokePath(EmfRecordType recordType, uint size, RectL bounds) : base(recordType, size)
     {
-        Size = size;
         Bounds = bounds;
     }
 
-    public static EmrStrokePath Parse(Stream stream, uint size)
+    public static EmrStrokePath Parse(Stream stream, EmfRecordType recordType, uint size)
     {
         var bounds = RectL.Parse(stream);
-
-        return new EmrStrokePath(size, bounds);
+        return new EmrStrokePath(recordType, size, bounds);
     }
 }

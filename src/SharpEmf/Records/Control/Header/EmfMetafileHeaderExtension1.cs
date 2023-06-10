@@ -28,6 +28,7 @@ public record EmfMetafileHeaderExtension1 : EmfMetafileHeader, IEmfParsableExten
     public uint BOpenGL { get; }
 
     protected EmfMetafileHeaderExtension1(EmfMetafileHeader emfMetafileHeader, uint cbPixelFormat, uint offPixelFormat, uint bOpenGL) : base(
+        recordType: emfMetafileHeader.Type,
         size: emfMetafileHeader.Size,
         version: emfMetafileHeader.Version,
         bounds: emfMetafileHeader.Bounds,

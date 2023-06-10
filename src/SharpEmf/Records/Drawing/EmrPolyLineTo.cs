@@ -10,9 +10,6 @@ namespace SharpEmf.Records.Drawing;
 [PublicAPI]
 public record EmrPolyLineTo : EnhancedMetafileRecord, IEmfParsable<EmrPolyLineTo>
 {
-    public override EmfRecordType Type => EmfRecordType.EMR_POLYLINETO;
-    public override uint Size { get; }
-
     /// <summary>
     /// Specifies the inclusive-inclusive bounding rectangle in logical units
     /// </summary>
@@ -28,15 +25,14 @@ public record EmrPolyLineTo : EnhancedMetafileRecord, IEmfParsable<EmrPolyLineTo
     /// </summary>
     public IReadOnlyList<PointL> APoints { get; }
 
-    private EmrPolyLineTo(uint size, RectL bounds, uint count, IReadOnlyList<PointL> aPoints)
+    private EmrPolyLineTo(EmfRecordType recordType, uint size, RectL bounds, uint count, IReadOnlyList<PointL> aPoints) : base(recordType, size)
     {
-        Size = size;
         Bounds = bounds;
         Count = count;
         APoints = aPoints;
     }
 
-    public static EmrPolyLineTo Parse(Stream stream, uint size)
+    public static EmrPolyLineTo Parse(Stream stream, EmfRecordType recordType, uint size)
     {
         var bounds = RectL.Parse(stream);
         // TODO: according to the documentation, number of maximum points allowed depends on line width and on the fact if device supports wideline
@@ -48,6 +44,6 @@ public record EmrPolyLineTo : EnhancedMetafileRecord, IEmfParsable<EmrPolyLineTo
             points[i] = PointL.Parse(stream);
         }
 
-        return new EmrPolyLineTo(size, bounds, count, points);
+        return new EmrPolyLineTo(recordType, size, bounds, count, points);
     }
 }

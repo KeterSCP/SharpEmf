@@ -9,24 +9,20 @@ namespace SharpEmf.Records.Drawing;
 [PublicAPI]
 public record EmrLineTo : EnhancedMetafileRecord, IEmfParsable<EmrLineTo>
 {
-    public override EmfRecordType Type => EmfRecordType.EMR_LINETO;
-    public override uint Size { get; }
-
     /// <summary>
     /// Specifies the coordinates of the line's endpoint
     /// </summary>
     public PointL Point { get; }
 
-    private EmrLineTo(uint size, PointL point)
+    private EmrLineTo(EmfRecordType recordType, uint size, PointL point) : base(recordType, size)
     {
-        Size = size;
         Point = point;
     }
 
-    public static EmrLineTo Parse(Stream stream, uint size)
+    public static EmrLineTo Parse(Stream stream, EmfRecordType recordType, uint size)
     {
         var point = PointL.Parse(stream);
 
-        return new EmrLineTo(size, point);
+        return new EmrLineTo(recordType, size, point);
     }
 }

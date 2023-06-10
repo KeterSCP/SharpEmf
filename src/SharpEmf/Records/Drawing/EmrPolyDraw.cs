@@ -10,9 +10,6 @@ namespace SharpEmf.Records.Drawing;
 [PublicAPI]
 public record EmrPolyDraw : EnhancedMetafileRecord, IEmfParsable<EmrPolyDraw>
 {
-    public override EmfRecordType Type => EmfRecordType.EMR_POLYDRAW;
-    public override uint Size { get; }
-
     /// <summary>
     /// Specifies the bounding rectangle in logical units
     /// </summary>
@@ -33,16 +30,21 @@ public record EmrPolyDraw : EnhancedMetafileRecord, IEmfParsable<EmrPolyDraw>
     /// </summary>
     public IReadOnlyList<Point> ABPoints { get; }
 
-    private EmrPolyDraw(uint size, RectL bounds, uint count, IReadOnlyList<PointL> aPoints, IReadOnlyList<Point> abPoints)
+    private EmrPolyDraw(
+        EmfRecordType recordType,
+        uint size,
+        RectL bounds,
+        uint count,
+        IReadOnlyList<PointL> aPoints,
+        IReadOnlyList<Point> abPoints) : base(recordType, size)
     {
-        Size = size;
         Bounds = bounds;
         Count = count;
         APoints = aPoints;
         ABPoints = abPoints;
     }
 
-    public static EmrPolyDraw Parse(Stream stream, uint size)
+    public static EmrPolyDraw Parse(Stream stream, EmfRecordType recordType, uint size)
     {
         var bounds = RectL.Parse(stream);
 
@@ -60,6 +62,6 @@ public record EmrPolyDraw : EnhancedMetafileRecord, IEmfParsable<EmrPolyDraw>
             abPoints[i] = stream.ReadEnum<Point>();
         }
 
-        return new EmrPolyDraw(size, bounds, count, points, abPoints);
+        return new EmrPolyDraw(recordType, size, bounds, count, points, abPoints);
     }
 }

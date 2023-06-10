@@ -9,24 +9,20 @@ namespace SharpEmf.Records.Drawing;
 [PublicAPI]
 public record EmrRectangle : EnhancedMetafileRecord, IEmfParsable<EmrRectangle>
 {
-    public override EmfRecordType Type => EmfRecordType.EMR_RECTANGLE;
-    public override uint Size { get; }
-
     /// <summary>
     /// Specifies the inclusive-inclusive rectangle to draw
     /// </summary>
     public RectL Box { get; }
 
-    private EmrRectangle(uint size, RectL box)
+    private EmrRectangle(EmfRecordType recordType, uint size, RectL box) : base(recordType, size)
     {
-        Size = size;
         Box = box;
     }
 
-    public static EmrRectangle Parse(Stream stream, uint size)
+    public static EmrRectangle Parse(Stream stream, EmfRecordType recordType, uint size)
     {
         var box = RectL.Parse(stream);
 
-        return new EmrRectangle(size, box);
+        return new EmrRectangle(recordType, size, box);
     }
 }

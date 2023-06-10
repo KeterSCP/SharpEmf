@@ -9,24 +9,20 @@ namespace SharpEmf.Records.Drawing;
 [PublicAPI]
 public record EmrEllipse : EnhancedMetafileRecord, IEmfParsable<EmrEllipse>
 {
-    public override EmfRecordType Type => EmfRecordType.EMR_ELLIPSE;
-    public override uint Size { get; }
-
     /// <summary>
     /// Specifies the inclusive-inclusive bounding rectangle in logical units
     /// </summary>
     public RectL Box { get; }
 
-    private EmrEllipse(uint size, RectL box)
+    private EmrEllipse(EmfRecordType recordType, uint size, RectL box) : base(recordType, size)
     {
-        Size = size;
         Box = box;
     }
 
-    public static EmrEllipse Parse(Stream stream, uint size)
+    public static EmrEllipse Parse(Stream stream, EmfRecordType recordType, uint size)
     {
         var box = RectL.Parse(stream);
 
-        return new EmrEllipse(size, box);
+        return new EmrEllipse(recordType, size, box);
     }
 }

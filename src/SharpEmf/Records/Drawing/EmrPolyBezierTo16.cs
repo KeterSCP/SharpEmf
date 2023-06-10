@@ -10,9 +10,6 @@ namespace SharpEmf.Records.Drawing;
 [PublicAPI]
 public record EmrPolyBezierTo16 : EnhancedMetafileRecord, IEmfParsable<EmrPolyBezierTo16>
 {
-    public override EmfRecordType Type => EmfRecordType.EMR_POLYBEZIERTO16;
-    public override uint Size { get; }
-
     /// <summary>
     /// Specifies the bounding rectangle in logical units
     /// </summary>
@@ -31,15 +28,14 @@ public record EmrPolyBezierTo16 : EnhancedMetafileRecord, IEmfParsable<EmrPolyBe
     /// </summary>
     public IReadOnlyList<PointS> APoints { get; }
 
-    private EmrPolyBezierTo16(uint size, RectL bounds, uint count, IReadOnlyList<PointS> aPoints)
+    private EmrPolyBezierTo16(EmfRecordType recordType, uint size, RectL bounds, uint count, IReadOnlyList<PointS> aPoints) : base(recordType, size)
     {
-        Size = size;
         Bounds = bounds;
         Count = count;
         APoints = aPoints;
     }
 
-    public static EmrPolyBezierTo16 Parse(Stream stream, uint size)
+    public static EmrPolyBezierTo16 Parse(Stream stream, EmfRecordType recordType, uint size)
     {
         var bounds = RectL.Parse(stream);
         var count = stream.ReadUInt32();
@@ -49,6 +45,6 @@ public record EmrPolyBezierTo16 : EnhancedMetafileRecord, IEmfParsable<EmrPolyBe
             aPoints[i] = PointS.Parse(stream);
         }
 
-        return new EmrPolyBezierTo16(size, bounds, count, aPoints);
+        return new EmrPolyBezierTo16(recordType, size, bounds, count, aPoints);
     }
 }

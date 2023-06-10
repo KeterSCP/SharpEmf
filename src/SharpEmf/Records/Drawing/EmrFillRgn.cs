@@ -13,9 +13,6 @@ namespace SharpEmf.Records.Drawing;
 [PublicAPI]
 public record EmrFillRgn : EnhancedMetafileRecord, IEmfParsable<EmrFillRgn>
 {
-    public override EmfRecordType Type => EmfRecordType.EMR_FILLRGN;
-    public override uint Size { get; }
-
     /// <summary>
     /// Specifies the destination bounding rectangle in logical units
     /// </summary>
@@ -42,16 +39,15 @@ public record EmrFillRgn : EnhancedMetafileRecord, IEmfParsable<EmrFillRgn>
     /// </remarks>
     public RegionData RgnData { get; }
 
-    private EmrFillRgn(uint size, RectL bounds, uint rgnDataSize, uint ihBrush, RegionData rgnData)
+    private EmrFillRgn(EmfRecordType recordType, uint size, RectL bounds, uint rgnDataSize, uint ihBrush, RegionData rgnData) : base(recordType, size)
     {
-        Size = size;
         Bounds = bounds;
         RgnDataSize = rgnDataSize;
         IhBrush = ihBrush;
         RgnData = rgnData;
     }
 
-    public static EmrFillRgn Parse(Stream stream, uint size)
+    public static EmrFillRgn Parse(Stream stream, EmfRecordType recordType, uint size)
     {
         var bounds = RectL.Parse(stream);
         var rgnDataSize = stream.ReadUInt32();
@@ -60,6 +56,6 @@ public record EmrFillRgn : EnhancedMetafileRecord, IEmfParsable<EmrFillRgn>
 
         Debug.Assert(rgnDataSize == RegionDataHeader.Size + rgnData.Data.Count * Unsafe.SizeOf<RectL>());
 
-        return new EmrFillRgn(size, bounds, rgnDataSize, ihBrush, rgnData);
+        return new EmrFillRgn(recordType, size, bounds, rgnDataSize, ihBrush, rgnData);
     }
 }

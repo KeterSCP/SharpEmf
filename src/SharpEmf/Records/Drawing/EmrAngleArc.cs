@@ -10,9 +10,6 @@ namespace SharpEmf.Records.Drawing;
 [PublicAPI]
 public record EmrAngleArc : EnhancedMetafileRecord, IEmfParsable<EmrAngleArc>
 {
-    public override EmfRecordType Type => EmfRecordType.EMR_ANGLEARC;
-    public override uint Size { get; }
-
     /// <summary>
     /// Specifies the logical coordinates of the circle's center
     /// </summary>
@@ -36,22 +33,21 @@ public record EmrAngleArc : EnhancedMetafileRecord, IEmfParsable<EmrAngleArc>
     /// </remarks>
     public float SweepAngle { get; }
 
-    private EmrAngleArc(uint size, PointL center, uint radius, float startAngle, float sweepAngle)
+    private EmrAngleArc(EmfRecordType recordType, uint size, PointL center, uint radius, float startAngle, float sweepAngle) : base(recordType, size)
     {
-        Size = size;
         Center = center;
         Radius = radius;
         StartAngle = startAngle;
         SweepAngle = sweepAngle;
     }
 
-    public static EmrAngleArc Parse(Stream stream, uint size)
+    public static EmrAngleArc Parse(Stream stream, EmfRecordType recordType, uint size)
     {
         var center = PointL.Parse(stream);
         var radius = stream.ReadUInt32();
         var startAngle = stream.ReadFloat32();
         var sweepAngle = stream.ReadFloat32();
 
-        return new EmrAngleArc(size, center, radius, startAngle, sweepAngle);
+        return new EmrAngleArc(recordType, size, center, radius, startAngle, sweepAngle);
     }
 }
