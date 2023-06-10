@@ -194,6 +194,9 @@ public enum EmfRecordType : uint
     /// </remarks>
     EMR_FILLRGN = 0x00000047,
 
+    /// <inheritdoc cref="EMR_POLYBEZIER"/>
+    EMR_POLYBEZIER16 = 0x00000055,
+
     /// <inheritdoc cref="EMR_POLYGON"/>
     EMR_POLYGON16 = 0x00000056,
 
