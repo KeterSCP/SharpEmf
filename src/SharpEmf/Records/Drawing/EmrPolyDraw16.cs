@@ -6,9 +6,9 @@ using SharpEmf.WmfTypes;
 
 namespace SharpEmf.Records.Drawing;
 
-/// <inheritdoc cref="EmfRecordType.EMR_POLYDRAW"/>
+/// <inheritdoc cref="EmfRecordType.EMR_POLYDRAW16"/>
 [PublicAPI]
-public record EmrPolyDraw : EnhancedMetafileRecord, IEmfParsable<EmrPolyDraw>
+public record EmrPolyDraw16 : EnhancedMetafileRecord, IEmfParsable<EmrPolyDraw16>
 {
     /// <summary>
     /// Specifies the bounding rectangle in logical units
@@ -23,19 +23,19 @@ public record EmrPolyDraw : EnhancedMetafileRecord, IEmfParsable<EmrPolyDraw>
     /// <summary>
     /// Points in logical units
     /// </summary>
-    public IReadOnlyList<PointL> APoints { get; }
+    public IReadOnlyList<PointS> APoints { get; }
 
     /// <summary>
     /// A <see cref="Count"/> length collection of byte values that specifies how each point in the <see cref="APoints"/> collection is used
     /// </summary>
     public IReadOnlyList<Point> ABTypes { get; }
 
-    private EmrPolyDraw(
+    private EmrPolyDraw16(
         EmfRecordType recordType,
         uint size,
         RectL bounds,
         uint count,
-        IReadOnlyList<PointL> aPoints,
+        IReadOnlyList<PointS> aPoints,
         IReadOnlyList<Point> abTypes) : base(recordType, size)
     {
         Bounds = bounds;
@@ -44,17 +44,17 @@ public record EmrPolyDraw : EnhancedMetafileRecord, IEmfParsable<EmrPolyDraw>
         ABTypes = abTypes;
     }
 
-    public static EmrPolyDraw Parse(Stream stream, EmfRecordType recordType, uint size)
+    public static EmrPolyDraw16 Parse(Stream stream, EmfRecordType recordType, uint size)
     {
         var bounds = RectL.Parse(stream);
 
         var count = stream.ReadUInt32();
-        var points = new PointL[(int)count];
+        var points = new PointS[(int)count];
         var abTypes = new Point[(int)count];
 
         for (var i = 0; i < count; i++)
         {
-            points[i] = PointL.Parse(stream);
+            points[i] = PointS.Parse(stream);
         }
 
         for (var i = 0; i < count; i++)
@@ -62,6 +62,6 @@ public record EmrPolyDraw : EnhancedMetafileRecord, IEmfParsable<EmrPolyDraw>
             abTypes[i] = stream.ReadEnum<Point>();
         }
 
-        return new EmrPolyDraw(recordType, size, bounds, count, points, abTypes);
+        return new EmrPolyDraw16(recordType, size, bounds, count, points, abTypes);
     }
 }
