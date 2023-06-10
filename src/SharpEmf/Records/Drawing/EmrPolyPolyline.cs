@@ -9,7 +9,7 @@ namespace SharpEmf.Records.Drawing;
 
 /// <inheritdoc cref="EmfRecordType.EMR_POLYPOLYLINE"/>
 [PublicAPI]
-public record EmrPolyPolyLine : EnhancedMetafileRecord, IEmfParsable<EmrPolyPolyLine>
+public record EmrPolyPolyline : EnhancedMetafileRecord, IEmfParsable<EmrPolyPolyline>
 {
     /// <summary>
     /// Specifies the bounding rectangle in logical units
@@ -39,7 +39,7 @@ public record EmrPolyPolyLine : EnhancedMetafileRecord, IEmfParsable<EmrPolyPoly
     /// </summary>
     public IReadOnlyList<PointL> APoints { get; }
 
-    private EmrPolyPolyLine(
+    private EmrPolyPolyline(
         EmfRecordType recordType,
         uint size,
         RectL bounds,
@@ -55,7 +55,7 @@ public record EmrPolyPolyLine : EnhancedMetafileRecord, IEmfParsable<EmrPolyPoly
         APoints = aPoints;
     }
 
-    public static EmrPolyPolyLine Parse(Stream stream, EmfRecordType recordType, uint size)
+    public static EmrPolyPolyline Parse(Stream stream, EmfRecordType recordType, uint size)
     {
         var bounds = RectL.Parse(stream);
         var numberOfPolylines = stream.ReadUInt32();
@@ -78,6 +78,6 @@ public record EmrPolyPolyLine : EnhancedMetafileRecord, IEmfParsable<EmrPolyPoly
             points[i] = PointL.Parse(stream);
         }
 
-        return new EmrPolyPolyLine(recordType, size, bounds, numberOfPolylines, count, polylinePointCount, points);
+        return new EmrPolyPolyline(recordType, size, bounds, numberOfPolylines, count, polylinePointCount, points);
     }
 }

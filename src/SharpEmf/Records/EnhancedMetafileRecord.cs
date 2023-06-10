@@ -41,7 +41,7 @@ public abstract record EnhancedMetafileRecord(EmfRecordType Type, uint Size)
             EmfRecordType.EMR_POLYLINE => EmrPolyLine.Parse,
             EmfRecordType.EMR_POLYBEZIERTO => EmrPolyBezierTo.Parse,
             EmfRecordType.EMR_POLYLINETO => EmrPolyLineTo.Parse,
-            EmfRecordType.EMR_POLYPOLYLINE => EmrPolyPolyLine.Parse,
+            EmfRecordType.EMR_POLYPOLYLINE => EmrPolyPolyline.Parse,
             EmfRecordType.EMR_POLYPOLYGON => EmrPolyPolygon.Parse,
             EmfRecordType.EMR_SETPIXELV => EmrSetPixelV.Parse,
             EmfRecordType.EMR_ANGLEARC => EmrAngleArc.Parse,
@@ -63,6 +63,7 @@ public abstract record EnhancedMetafileRecord(EmfRecordType Type, uint Size)
             EmfRecordType.EMR_POLYLINE16 => EmrPolyline16.Parse,
             EmfRecordType.EMR_POLYBEZIERTO16 => EmrPolyBezierTo16.Parse,
             EmfRecordType.EMR_POLYLINETO16 => EmrPolylineTo16.Parse,
+            EmfRecordType.EMR_POLYPOLYLINE16 => EmrPolyPolyline16.Parse,
             EmfRecordType.EMR_POLYDRAW16 => EmrPolyDraw16.Parse,
             EmfRecordType.EMR_GRADIENTFILL => EmrGradientFill.Parse,
 
