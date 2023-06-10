@@ -6,9 +6,9 @@ using SharpEmf.WmfTypes;
 
 namespace SharpEmf.Records.Drawing;
 
-/// <inheritdoc cref="EmfRecordType.EMR_POLYBEZIER"/>
+/// <inheritdoc cref="EmfRecordType.EMR_POLYBEZIER16"/>
 [PublicAPI]
-public record EmrPolyBezier : EnhancedMetafileRecord, IEmfParsable<EmrPolyBezier>
+public record EmrPolyBezier16 : EnhancedMetafileRecord, IEmfParsable<EmrPolyBezier16>
 {
     /// <summary>
     /// Specifies the inclusive-inclusive bounding rectangle in logical units
@@ -27,26 +27,26 @@ public record EmrPolyBezier : EnhancedMetafileRecord, IEmfParsable<EmrPolyBezier
     /// <summary>
     /// Specifies the endpoints and control points of the Bezier curves in logical units
     /// </summary>
-    public IReadOnlyList<PointL> APoints { get; }
+    public IReadOnlyList<PointS> APoints { get; }
 
-    private EmrPolyBezier(EmfRecordType recordType, uint size, RectL bounds, uint count, IReadOnlyList<PointL> aPoints) : base(recordType, size)
+    private EmrPolyBezier16(EmfRecordType recordType, uint size, RectL bounds, uint count, IReadOnlyList<PointS> aPoints) : base(recordType, size)
     {
         Bounds = bounds;
         Count = count;
         APoints = aPoints;
     }
 
-    public static EmrPolyBezier Parse(Stream stream, EmfRecordType recordType, uint size)
+    public static EmrPolyBezier16 Parse(Stream stream, EmfRecordType recordType, uint size)
     {
         var bounds = RectL.Parse(stream);
         // TODO: according to the documentation, number of maximum points allowed depends on line width and on the fact if device supports wideline
         var count = stream.ReadUInt32();
-        var aPoints = new PointL[count];
+        var aPoints = new PointS[count];
         for (var i = 0; i < count; i++)
         {
-            aPoints[i] = PointL.Parse(stream);
+            aPoints[i] = PointS.Parse(stream);
         }
 
-        return new EmrPolyBezier(recordType, size, bounds, count, aPoints);
+        return new EmrPolyBezier16(recordType, size, bounds, count, aPoints);
     }
 }
