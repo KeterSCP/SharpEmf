@@ -61,6 +61,7 @@ public abstract record EnhancedMetafileRecord(EmfRecordType Type, uint Size)
             EmfRecordType.EMR_POLYGON16 => EmrPolygon16.Parse,
             EmfRecordType.EMR_POLYLINE16 => EmrPolyline16.Parse,
             EmfRecordType.EMR_POLYBEZIERTO16 => EmrPolyBezierTo16.Parse,
+            EmfRecordType.EMR_POLYLINETO16 => EmrPolylineTo16.Parse,
             EmfRecordType.EMR_GRADIENTFILL => EmrGradientFill.Parse,
 
             _ => SkipRecord

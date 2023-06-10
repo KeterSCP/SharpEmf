@@ -203,6 +203,9 @@ public enum EmfRecordType : uint
     /// <inheritdoc cref="EMR_POLYBEZIER"/>
     EMR_POLYBEZIERTO16 = 0x00000058,
 
+    /// <inheritdoc cref="EMR_POLYLINETO"/>
+    EMR_POLYLINETO16 = 0x00000059,
+
     /// <summary>
     /// Specifies filling rectangles or triangles with gradients of
     /// </summary>
