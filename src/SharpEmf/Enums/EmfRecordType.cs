@@ -212,6 +212,9 @@ public enum EmfRecordType : uint
     /// <inheritdoc cref="EMR_POLYPOLYLINE"/>
     EMR_POLYPOLYLINE16 = 0x0000005A,
 
+    /// <inheritdoc cref="EMR_POLYPOLYGON"/>
+    EMR_POLYPOLYGON16 = 0x0000005B,
+
     /// <inheritdoc cref="EMR_POLYDRAW"/>
     EMR_POLYDRAW16 = 0x0000005C,
 
