@@ -201,6 +201,14 @@ public enum EmfRecordType : uint
     /// </remarks>
     EMR_FRAMERGN = 0x00000048,
 
+    /// <summary>
+    /// Paints the specified region by using the current brush
+    /// </summary>
+    /// <remarks>
+    /// The current clipping regions used by this record are maintained in a Regions state element in the playback device context
+    /// </remarks>
+    EMR_PAINTRGN = 0x0000004A,
+
     /// <inheritdoc cref="EMR_POLYBEZIER"/>
     EMR_POLYBEZIER16 = 0x00000055,
 

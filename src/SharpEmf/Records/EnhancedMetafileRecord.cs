@@ -59,6 +59,7 @@ public abstract record EnhancedMetafileRecord(EmfRecordType Type, uint Size)
             EmfRecordType.EMR_STROKEPATH => EmrStrokePath.Parse,
             EmfRecordType.EMR_FILLRGN => EmrFillRgn.Parse,
             EmfRecordType.EMR_FRAMERGN => EmrFrameRgn.Parse,
+            EmfRecordType.EMR_PAINTRGN => EmrPaintRgn.Parse,
             EmfRecordType.EMR_POLYBEZIER16 => EmrPolyBezier16.Parse,
             EmfRecordType.EMR_POLYGON16 => EmrPolygon16.Parse,
             EmfRecordType.EMR_POLYLINE16 => EmrPolyline16.Parse,
