@@ -234,6 +234,11 @@ public enum EmfRecordType : uint
     EMR_POLYDRAW16 = 0x0000005C,
 
     /// <summary>
+    /// Outputs a string
+    /// </summary>
+    EMR_SMALLTEXTOUT = 0x0000006C,
+
+    /// <summary>
     /// Specifies filling rectangles or triangles with gradients of
     /// </summary>
     EMR_GRADIENTFILL = 0x00000076,
