@@ -9,9 +9,9 @@ using SharpEmf.WmfTypes;
 
 namespace SharpEmf.Records.Drawing;
 
-/// <inheritdoc cref="EmfRecordType.EMR_FILLRGN"/>
+/// <inheritdoc cref="EmfRecordType.EMR_FRAMERGN"/>
 [PublicAPI]
-public record EmrFillRgn : EnhancedMetafileRecord, IEmfParsable<EmrFillRgn>
+public record EmrFrameRgn : EnhancedMetafileRecord, IEmfParsable<EmrFrameRgn>
 {
     /// <summary>
     /// Specifies the destination bounding rectangle in logical units
@@ -32,6 +32,16 @@ public record EmrFillRgn : EnhancedMetafileRecord, IEmfParsable<EmrFillRgn>
     public uint IhBrush { get; }
 
     /// <summary>
+    /// Specifies the width of the vertical brush stroke, in logical units
+    /// </summary>
+    public int Width { get; }
+
+    /// <summary>
+    /// Specifies the height of the horizontal brush stroke, in logical units
+    /// </summary>
+    public int Height { get; }
+
+    /// <summary>
     /// Specifies the output region in a <see cref="RegionData"/> object
     /// </summary>
     /// <remarks>
@@ -39,23 +49,35 @@ public record EmrFillRgn : EnhancedMetafileRecord, IEmfParsable<EmrFillRgn>
     /// </remarks>
     public RegionData RgnData { get; }
 
-    private EmrFillRgn(EmfRecordType recordType, uint size, RectL bounds, uint rgnDataSize, uint ihBrush, RegionData rgnData) : base(recordType, size)
+    private EmrFrameRgn(
+        EmfRecordType recordType,
+        uint size,
+        RectL bounds,
+        uint rgnDataSize,
+        uint ihBrush,
+        int width,
+        int height,
+        RegionData rgnData) : base(recordType, size)
     {
         Bounds = bounds;
         RgnDataSize = rgnDataSize;
         IhBrush = ihBrush;
+        Width = width;
+        Height = height;
         RgnData = rgnData;
     }
 
-    public static EmrFillRgn Parse(Stream stream, EmfRecordType recordType, uint size)
+    public static EmrFrameRgn Parse(Stream stream, EmfRecordType recordType, uint size)
     {
         var bounds = RectL.Parse(stream);
         var rgnDataSize = stream.ReadUInt32();
         var ihBrush = stream.ReadUInt32();
+        var width = stream.ReadInt32();
+        var height = stream.ReadInt32();
         var rgnData = RegionData.Parse(stream);
 
         Debug.Assert(rgnDataSize == RegionDataHeader.Size + rgnData.Data.Count * Unsafe.SizeOf<RectL>());
 
-        return new EmrFillRgn(recordType, size, bounds, rgnDataSize, ihBrush, rgnData);
+        return new EmrFrameRgn(recordType, size, bounds, rgnDataSize, ihBrush, width, height, rgnData);
     }
 }
