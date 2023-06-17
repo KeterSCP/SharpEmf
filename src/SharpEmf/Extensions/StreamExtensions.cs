@@ -49,6 +49,13 @@ internal static class StreamExtensions
         return Encoding.Unicode.GetString(buffer);
     }
 
+    internal static string ReadAsciiString(this Stream stream, int length)
+    {
+        Span<byte> buffer = length <= 1024 ? stackalloc byte[length] : new byte[length];
+        stream.ReadExactly(buffer);
+        return Encoding.ASCII.GetString(buffer);
+    }
+
     internal static T ReadEnum<T>(this Stream stream) where T : Enum
     {
         var size = Unsafe.SizeOf<T>();
@@ -57,5 +64,19 @@ internal static class StreamExtensions
         stream.ReadExactly(buffer);
 
         return Unsafe.As<byte, T>(ref MemoryMarshal.GetReference(buffer));
+    }
+
+    internal static uint[] ReadUInt32Array(this Stream stream, int length)
+    {
+        Span<byte> buffer = length <= 1024 ? stackalloc byte[length * 4] : new byte[length * 4];
+        stream.ReadExactly(buffer);
+
+        var result = new uint[length];
+        for (var i = 0; i < length; i++)
+        {
+            result[i] = BinaryPrimitives.ReadUInt32LittleEndian(buffer.Slice(i * 4, 4));
+        }
+
+        return result;
     }
 }
