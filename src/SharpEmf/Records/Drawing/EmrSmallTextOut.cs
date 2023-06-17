@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System.Runtime.CompilerServices;
+using JetBrains.Annotations;
 using SharpEmf.Enums;
 using SharpEmf.Extensions;
 using SharpEmf.Interfaces;
@@ -103,7 +104,16 @@ public record EmrSmallTextOut : EnhancedMetafileRecord, IEmfParsable<EmrSmallTex
         var exScale = stream.ReadFloat32();
         var eyScale = stream.ReadFloat32();
 
-        RectL? bounds = fuOptions.HasFlag(ExtTextOutOptions.ETO_NO_RECT) ? null : RectL.Parse(stream);
+        RectL? bounds = null;
+        if (fuOptions.HasFlag(ExtTextOutOptions.ETO_NO_RECT))
+        {
+            stream.Seek(Unsafe.SizeOf<RectL>(), SeekOrigin.Current);
+        }
+        else
+        {
+            bounds = RectL.Parse(stream);
+        }
+
         var textString = stream.ReadUnicodeString((int)cChars);
 
         return new EmrSmallTextOut(recordType, size, x, y, cChars, fuOptions, iGraphicsMode, exScale, eyScale, bounds, textString);

@@ -8,9 +8,9 @@ using SharpEmf.WmfTypes;
 
 namespace SharpEmf.Records.Drawing;
 
-/// <inheritdoc cref="EmfRecordType.EMR_EXTTEXTOUTA"/>
+/// <inheritdoc cref="EmfRecordType.EMR_EXTTEXTOUTW"/>
 [PublicAPI]
-public record EmrExtTextOutA : EnhancedMetafileRecord, IEmfParsable<EmrExtTextOutA>
+public record EmrExtTextOutW : EnhancedMetafileRecord, IEmfParsable<EmrExtTextOutW>
 {
     /// <summary>
     /// Not used and MUST be ignored on receipt
@@ -39,27 +39,27 @@ public record EmrExtTextOutA : EnhancedMetafileRecord, IEmfParsable<EmrExtTextOu
     public float EYScale { get; }
 
     /// <summary>
-    /// Specifies the output string in 8-bit ASCII characters, text attributes, and spacing values
+    /// Specifies the output string in UNICODE characters, with text attributes and spacing values
     /// </summary>
-    public EmrText AEmrText { get; }
+    public EmrText WEmrText { get; }
 
-    private EmrExtTextOutA(
+    private EmrExtTextOutW(
         EmfRecordType recordType,
         uint size,
         RectL bounds,
         GraphicsMode iGraphicsMode,
         float exScale,
         float eyScale,
-        EmrText aEmrText) : base(recordType, size)
+        EmrText wEmrText) : base(recordType, size)
     {
         Bounds = bounds;
         IGraphicsMode = iGraphicsMode;
         EXScale = exScale;
         EYScale = eyScale;
-        AEmrText = aEmrText;
+        WEmrText = wEmrText;
     }
 
-    public static EmrExtTextOutA Parse(Stream stream, EmfRecordType recordType, uint size)
+    public static EmrExtTextOutW Parse(Stream stream, EmfRecordType recordType, uint size)
     {
         var bounds = RectL.Parse(stream);
         var iGraphicsMode = stream.ReadEnum<GraphicsMode>();
@@ -76,8 +76,8 @@ public record EmrExtTextOutA : EnhancedMetafileRecord, IEmfParsable<EmrExtTextOu
             Unsafe.SizeOf<float>() +
             Unsafe.SizeOf<float>();
 
-        var aEmrText = EmrText.Parse(stream, recordType, selfSizeWithoutTextBuffer);
+        var wEmrText = EmrText.Parse(stream, recordType, selfSizeWithoutTextBuffer);
 
-        return new EmrExtTextOutA(recordType, size, bounds, iGraphicsMode, exScale, eyScale, aEmrText);
+        return new EmrExtTextOutW(recordType, size, bounds, iGraphicsMode, exScale, eyScale, wEmrText);
     }
 }
