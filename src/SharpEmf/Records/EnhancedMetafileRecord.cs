@@ -5,6 +5,7 @@ using SharpEmf.Extensions;
 using SharpEmf.Records.Control.Eof;
 using SharpEmf.Records.Control.Header;
 using SharpEmf.Records.Drawing;
+using SharpEmf.Records.Escape;
 
 namespace SharpEmf.Records;
 
@@ -73,7 +74,10 @@ public abstract record EnhancedMetafileRecord(EmfRecordType Type, uint Size)
             EmfRecordType.EMR_POLYDRAW16 => EmrPolyDraw16.Parse,
             EmfRecordType.EMR_POLYTEXTOUTA => EmrPolyTextOutA.Parse,
             EmfRecordType.EMR_POLYTEXTOUTW => EmrPolyTextOutW.Parse,
+            EmfRecordType.EMR_DRAWESCAPE => EmrDrawEscape.Parse,
+            EmfRecordType.EMR_EXTESCAPE => EmrExtEscape.Parse,
             EmfRecordType.EMR_SMALLTEXTOUT => EmrSmallTextOut.Parse,
+            EmfRecordType.EMR_NAMEDESCAPE => EmrNamedEscape.Parse,
             EmfRecordType.EMR_GRADIENTFILL => EmrGradientFill.Parse,
 
             _ => SkipRecord

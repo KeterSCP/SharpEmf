@@ -259,9 +259,24 @@ public enum EmfRecordType : uint
     EMR_POLYTEXTOUTW = 0x00000061,
 
     /// <summary>
+    /// Passes arbitrary information to the driver. The intent is that the information results in drawing being done
+    /// </summary>
+    EMR_DRAWESCAPE = 0x00000069,
+
+    /// <summary>
+    /// Passes arbitrary information to the driver. The intent is that the information does not result in drawing being done
+    /// </summary>
+    EMR_EXTESCAPE = 0x0000006A,
+
+    /// <summary>
     /// Outputs a string
     /// </summary>
     EMR_SMALLTEXTOUT = 0x0000006C,
+
+    /// <summary>
+    /// Passes arbitrary information to the given named driver
+    /// </summary>
+    EMR_NAMEDESCAPE = 0x0000006E,
 
     /// <summary>
     /// Specifies filling rectangles or triangles with gradients of
