@@ -151,6 +151,11 @@ public enum EmfRecordType : uint
     EMR_PIE = 0x0000002F,
 
     /// <summary>
+    /// Fills an area of the display surface with the current brush
+    /// </summary>
+    EMR_EXTFLOODFILL = 0x00000035,
+
+    /// <summary>
     /// Defines a line from the current drawing position up to, but not including,
     /// the specified point. It resets the current drawing position to the specified point
     /// </summary>
