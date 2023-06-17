@@ -30,6 +30,9 @@ public class EmrTextParsingTests
             bottom: Random.Shared.Next());
 
         var parentSizeWithoutTextBuffer =
+            // Base record fields
+            Unsafe.SizeOf<EmfRecordType>() +
+            Unsafe.SizeOf<uint>() +
             // EmrExtTextOutA.Bounds
             Unsafe.SizeOf<RectL>() +
             // EmrExtTextOutA.IGraphicsMode
@@ -49,7 +52,7 @@ public class EmrTextParsingTests
             // EmrText.Options
             Unsafe.SizeOf<ExtTextOutOptions>() +
             // EmrText.Rectangle
-            (rectangle is null ? 0 : Unsafe.SizeOf<RectL>()) +
+            Unsafe.SizeOf<RectL>() +
             // EmrText.OffDx
             Unsafe.SizeOf<uint>();
 
@@ -62,24 +65,33 @@ public class EmrTextParsingTests
         // EmrText.Options
         memoryStream.Write(BitConverter.GetBytes((uint)options));
         // EmrText.Rectangle
-        if (rectangle is not null)
-        {
-            memoryStream.Write(BitConverter.GetBytes(rectangle.Value.Left));
-            memoryStream.Write(BitConverter.GetBytes(rectangle.Value.Top));
-            memoryStream.Write(BitConverter.GetBytes(rectangle.Value.Right));
-            memoryStream.Write(BitConverter.GetBytes(rectangle.Value.Bottom));
-        }
+        memoryStream.Write(BitConverter.GetBytes(rectangle?.Left ?? 0));
+        memoryStream.Write(BitConverter.GetBytes(rectangle?.Top ?? 0));
+        memoryStream.Write(BitConverter.GetBytes(rectangle?.Right ?? 0));
+        memoryStream.Write(BitConverter.GetBytes(rectangle?.Bottom ?? 0));
         // EmrText.OffDx
         memoryStream.Write(BitConverter.GetBytes(
             parentSizeWithoutTextBuffer +
             emrTextSizeWithoutBuffers +
             undefinedStringBufferSpace +
-            stringBuffer.Length +
+            // TODO: extend this with EMR_POLYTEXTOUTA, EMR_POLYTEXTOUTW
+            parentRecordType switch
+            {
+                EmfRecordType.EMR_EXTTEXTOUTA => stringBuffer.Length,
+                EmfRecordType.EMR_EXTTEXTOUTW => stringBuffer.Length * 2,
+            } +
             undefinedDxSpace));
 
         // EmrText.StringBuffer
         memoryStream.Write(stackalloc byte[undefinedStringBufferSpace]);
-        memoryStream.Write(Encoding.ASCII.GetBytes(stringBuffer));
+        // TODO: extend this with EMR_POLYTEXTOUTA, EMR_POLYTEXTOUTW
+        var encoding = parentRecordType switch
+        {
+            EmfRecordType.EMR_EXTTEXTOUTA => Encoding.ASCII,
+            EmfRecordType.EMR_EXTTEXTOUTW => Encoding.Unicode,
+            _ => throw new SwitchExpressionException("Unexpected parent record type")
+        };
+        memoryStream.Write(encoding.GetBytes(stringBuffer));
 
         // EmrText.DxBuffer
         memoryStream.Write(stackalloc byte[undefinedDxSpace]);
@@ -111,8 +123,9 @@ public class EmrTextParsingTests
         var textOutOptions = Enum.GetValues<ExtTextOutOptions>();
         var parentRecordTypes = new[]
         {
-            // TODO: extend this with EMR_POLYTEXTOUTA, EMR_EXTTEXTOUTW, EMR_POLYTEXTOUTW
-            EmfRecordType.EMR_EXTTEXTOUTA
+            // TODO: extend this with EMR_POLYTEXTOUTA, EMR_POLYTEXTOUTW
+            EmfRecordType.EMR_EXTTEXTOUTA,
+            EmfRecordType.EMR_EXTTEXTOUTW
         };
 
         foreach (var textOutOption in textOutOptions)

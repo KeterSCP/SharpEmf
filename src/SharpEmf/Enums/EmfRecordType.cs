@@ -214,6 +214,11 @@ public enum EmfRecordType : uint
     /// </summary>
     EMR_EXTTEXTOUTA = 0x00000053,
 
+    /// <summary>
+    /// Draws a Unicode text string using the current font and text colors
+    /// </summary>
+    EMR_EXTTEXTOUTW = 0x00000054,
+
     /// <inheritdoc cref="EMR_POLYBEZIER"/>
     EMR_POLYBEZIER16 = 0x00000055,
 

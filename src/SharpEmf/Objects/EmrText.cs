@@ -103,7 +103,16 @@ public record EmrText
         var chars = stream.ReadUInt32();
         var offString = stream.ReadUInt32();
         var options = stream.ReadEnum<ExtTextOutOptions>();
-        RectL? rectangle = options.HasFlag(ExtTextOutOptions.ETO_NO_RECT) ? null : RectL.Parse(stream);
+
+        RectL? rectangle = null;
+        if (options.HasFlag(ExtTextOutOptions.ETO_NO_RECT))
+        {
+            stream.Seek(Unsafe.SizeOf<RectL>(), SeekOrigin.Current);
+        }
+        else
+        {
+            rectangle = RectL.Parse(stream);
+        }
         var offDx = stream.ReadUInt32();
 
         var selfSize =
@@ -111,20 +120,29 @@ public record EmrText
             Unsafe.SizeOf<uint>() +
             Unsafe.SizeOf<uint>() +
             Unsafe.SizeOf<ExtTextOutOptions>() +
-            (rectangle is null ? 0 : Unsafe.SizeOf<RectL>()) +
+            Unsafe.SizeOf<RectL>() +
             Unsafe.SizeOf<uint>();
 
         var seekOffset = offString - (parentSizeWithoutTextBuffer + selfSize);
         stream.Seek(seekOffset, SeekOrigin.Current);
 
-        var stringBuffer = parentRecordType switch
+        var stringBytesCount = parentRecordType switch
         {
-            // TODO: handle all cases (EMR_POLYTEXTOUTA, EMR_EXTTEXTOUTW, EMR_POLYTEXTOUTW)
-            EmfRecordType.EMR_EXTTEXTOUTA => stream.ReadAsciiString((int)chars),
+            // TODO: handle all cases (EMR_POLYTEXTOUTA, EMR_POLYTEXTOUTW)
+            EmfRecordType.EMR_EXTTEXTOUTA => (int)chars,
+            EmfRecordType.EMR_EXTTEXTOUTW => (int)(chars * 2),
             _ => throw new EmfParseException("Unexpected parent record type")
         };
 
-        seekOffset = offDx - (parentSizeWithoutTextBuffer + selfSize + seekOffset + stringBuffer.Length);
+        var stringBuffer = parentRecordType switch
+        {
+            // TODO: handle all cases (EMR_POLYTEXTOUTA, EMR_POLYTEXTOUTW)
+            EmfRecordType.EMR_EXTTEXTOUTA => stream.ReadAsciiString(stringBytesCount),
+            EmfRecordType.EMR_EXTTEXTOUTW => stream.ReadUnicodeString(stringBytesCount),
+            _ => throw new EmfParseException("Unexpected parent record type")
+        };
+
+        seekOffset = offDx - (parentSizeWithoutTextBuffer + selfSize + seekOffset + stringBytesCount);
         stream.Seek(seekOffset, SeekOrigin.Current);
 
         var dxBufferSize = options.HasFlag(ExtTextOutOptions.ETO_PDY) ? chars * 2 : chars;
