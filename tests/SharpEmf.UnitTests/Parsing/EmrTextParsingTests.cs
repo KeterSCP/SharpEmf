@@ -74,20 +74,21 @@ public class EmrTextParsingTests
             parentSizeWithoutTextBuffer +
             emrTextSizeWithoutBuffers +
             undefinedStringBufferSpace +
-            // TODO: extend this with EMR_POLYTEXTOUTA, EMR_POLYTEXTOUTW
+            // TODO: extend this with EMR_POLYTEXTOUTW
             parentRecordType switch
             {
-                EmfRecordType.EMR_EXTTEXTOUTA => stringBuffer.Length,
+                EmfRecordType.EMR_EXTTEXTOUTA or EmfRecordType.EMR_POLYTEXTOUTA => stringBuffer.Length,
                 EmfRecordType.EMR_EXTTEXTOUTW => stringBuffer.Length * 2,
+                _ => throw new SwitchExpressionException("Unexpected parent record type")
             } +
             undefinedDxSpace));
 
         // EmrText.StringBuffer
         memoryStream.Write(stackalloc byte[undefinedStringBufferSpace]);
-        // TODO: extend this with EMR_POLYTEXTOUTA, EMR_POLYTEXTOUTW
+        // TODO: extend this with EMR_POLYTEXTOUTW
         var encoding = parentRecordType switch
         {
-            EmfRecordType.EMR_EXTTEXTOUTA => Encoding.ASCII,
+            EmfRecordType.EMR_EXTTEXTOUTA or EmfRecordType.EMR_POLYTEXTOUTA => Encoding.ASCII,
             EmfRecordType.EMR_EXTTEXTOUTW => Encoding.Unicode,
             _ => throw new SwitchExpressionException("Unexpected parent record type")
         };
@@ -123,9 +124,10 @@ public class EmrTextParsingTests
         var textOutOptions = Enum.GetValues<ExtTextOutOptions>();
         var parentRecordTypes = new[]
         {
-            // TODO: extend this with EMR_POLYTEXTOUTA, EMR_POLYTEXTOUTW
+            // TODO: extend this with EMR_POLYTEXTOUTW
             EmfRecordType.EMR_EXTTEXTOUTA,
-            EmfRecordType.EMR_EXTTEXTOUTW
+            EmfRecordType.EMR_EXTTEXTOUTW,
+            EmfRecordType.EMR_POLYTEXTOUTA
         };
 
         foreach (var textOutOption in textOutOptions)

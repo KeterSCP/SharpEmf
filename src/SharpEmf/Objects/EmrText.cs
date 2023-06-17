@@ -128,16 +128,16 @@ public record EmrText
 
         var stringBytesCount = parentRecordType switch
         {
-            // TODO: handle all cases (EMR_POLYTEXTOUTA, EMR_POLYTEXTOUTW)
-            EmfRecordType.EMR_EXTTEXTOUTA => (int)chars,
+            // TODO: handle all cases (EMR_POLYTEXTOUTW)
+            EmfRecordType.EMR_EXTTEXTOUTA or EmfRecordType.EMR_POLYTEXTOUTA => (int)chars,
             EmfRecordType.EMR_EXTTEXTOUTW => (int)(chars * 2),
             _ => throw new EmfParseException("Unexpected parent record type")
         };
 
         var stringBuffer = parentRecordType switch
         {
-            // TODO: handle all cases (EMR_POLYTEXTOUTA, EMR_POLYTEXTOUTW)
-            EmfRecordType.EMR_EXTTEXTOUTA => stream.ReadAsciiString(stringBytesCount),
+            // TODO: handle all cases (EMR_POLYTEXTOUTW)
+            EmfRecordType.EMR_EXTTEXTOUTA or EmfRecordType.EMR_POLYTEXTOUTA => stream.ReadAsciiString(stringBytesCount),
             EmfRecordType.EMR_EXTTEXTOUTW => stream.ReadUnicodeString(stringBytesCount),
             _ => throw new EmfParseException("Unexpected parent record type")
         };
