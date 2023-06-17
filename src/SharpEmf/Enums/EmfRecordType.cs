@@ -249,6 +249,11 @@ public enum EmfRecordType : uint
     EMR_POLYTEXTOUTA = 0x00000060,
 
     /// <summary>
+    /// Draws one or more Unicode text strings using the current font and text colors
+    /// </summary>
+    EMR_POLYTEXTOUTW = 0x00000061,
+
+    /// <summary>
     /// Outputs a string
     /// </summary>
     EMR_SMALLTEXTOUT = 0x0000006C,
