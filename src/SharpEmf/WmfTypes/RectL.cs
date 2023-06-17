@@ -29,7 +29,7 @@ public readonly struct RectL
     /// </summary>
     public int Bottom { get; }
 
-    private RectL(int left, int top, int right, int bottom)
+    internal RectL(int left, int top, int right, int bottom)
     {
         Left = left;
         Top = top;
