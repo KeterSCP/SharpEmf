@@ -2,6 +2,7 @@
 using SharpEmf.Enums;
 using SharpEmf.Exceptions;
 using SharpEmf.Extensions;
+using SharpEmf.Records.Clipping;
 using SharpEmf.Records.Control.Eof;
 using SharpEmf.Records.Control.Header;
 using SharpEmf.Records.Drawing;
@@ -45,6 +46,9 @@ public abstract record EnhancedMetafileRecord(EmfRecordType Type, uint Size)
             EmfRecordType.EMR_POLYPOLYLINE => EmrPolyPolyline.Parse,
             EmfRecordType.EMR_POLYPOLYGON => EmrPolyPolygon.Parse,
             EmfRecordType.EMR_SETPIXELV => EmrSetPixelV.Parse,
+            EmfRecordType.EMR_OFFSETCLIPRGN => EmrOffsetClipRgn.Parse,
+            EmfRecordType.EMR_EXCLUDECLIPRECT => EmrExcludeClipRect.Parse,
+            EmfRecordType.EMR_INTERSECTCLIPRECT => EmrIntersectClipRect.Parse,
             EmfRecordType.EMR_ANGLEARC => EmrAngleArc.Parse,
             EmfRecordType.EMR_ELLIPSE => EmrEllipse.Parse,
             EmfRecordType.EMR_RECTANGLE => EmrRectangle.Parse,
@@ -59,9 +63,11 @@ public abstract record EnhancedMetafileRecord(EmfRecordType Type, uint Size)
             EmfRecordType.EMR_FILLPATH => EmrFillPath.Parse,
             EmfRecordType.EMR_STROKEANDFILLPATH => EmrStrokeAndFillPath.Parse,
             EmfRecordType.EMR_STROKEPATH => EmrStrokePath.Parse,
+            EmfRecordType.EMR_SELECTCLIPPATH => EmrSelectClipPath.Parse,
             EmfRecordType.EMR_FILLRGN => EmrFillRgn.Parse,
             EmfRecordType.EMR_FRAMERGN => EmrFrameRgn.Parse,
             EmfRecordType.EMR_PAINTRGN => EmrPaintRgn.Parse,
+            EmfRecordType.EMR_EXTSELECTCLIPRGN => EmrExtSelectClipRgn.Parse,
             EmfRecordType.EMR_EXTTEXTOUTA => EmrExtTextOutA.Parse,
             EmfRecordType.EMR_EXTTEXTOUTW => EmrExtTextOutW.Parse,
             EmfRecordType.EMR_POLYBEZIER16 => EmrPolyBezier16.Parse,
