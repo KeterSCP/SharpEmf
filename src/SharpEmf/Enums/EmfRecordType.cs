@@ -86,6 +86,21 @@ public enum EmfRecordType : uint
     EMR_SETPIXELV = 0x0000000F,
 
     /// <summary>
+    /// Redefines the current clipping region by the specified offsets
+    /// </summary>
+    EMR_OFFSETCLIPRGN = 0x0000001A,
+
+    /// <summary>
+    /// Defines a new clipping region that consists of the current clipping region intersected with the specified rectangle
+    /// </summary>
+    EMR_EXCLUDECLIPRECT = 0x0000001D,
+
+    /// <summary>
+    /// Defines a new clipping region from the intersection of the current clipping region and the specified rectangle
+    /// </summary>
+    EMR_INTERSECTCLIPRECT = 0x0000001E,
+
+    /// <summary>
     /// Defines a line segment of an arc
     /// </summary>
     /// <remarks>
@@ -191,6 +206,11 @@ public enum EmfRecordType : uint
     EMR_STROKEPATH = 0x00000040,
 
     /// <summary>
+    /// Specifies a clipping region as the current clipping region combined with the current path bracket, using the specified mode
+    /// </summary>
+    EMR_SELECTCLIPPATH = 0x00000043,
+
+    /// <summary>
     /// Fills the specified region by using the specified brush
     /// </summary>
     /// <remarks>
@@ -213,6 +233,11 @@ public enum EmfRecordType : uint
     /// The current clipping regions used by this record are maintained in a Regions state element in the playback device context
     /// </remarks>
     EMR_PAINTRGN = 0x0000004A,
+
+    /// <summary>
+    /// Combines the specified region with the current clipping region, using the specified mode
+    /// </summary>
+    EMR_EXTSELECTCLIPRGN = 0x0000004B,
 
     /// <summary>
     /// Draws an ASCII text string using the current font and text colors

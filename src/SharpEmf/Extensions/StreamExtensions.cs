@@ -56,7 +56,7 @@ internal static class StreamExtensions
         return Encoding.ASCII.GetString(buffer);
     }
 
-    internal static T ReadEnum<T>(this Stream stream) where T : Enum
+    internal static T ReadEnum<T>(this Stream stream) where T : struct, Enum
     {
         var size = Unsafe.SizeOf<T>();
 

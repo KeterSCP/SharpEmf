@@ -29,7 +29,7 @@ public class EnhancedMetafileParsingTests
         // Arrange
         using var memoryStream = new MemoryStream();
 
-        const uint size = 1;
+        const uint size = 4;
 
         memoryStream.Write(BitConverter.GetBytes((uint)recordType));
         memoryStream.Write(BitConverter.GetBytes(size));
