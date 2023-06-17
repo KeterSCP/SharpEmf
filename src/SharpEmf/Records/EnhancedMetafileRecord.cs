@@ -7,6 +7,7 @@ using SharpEmf.Records.Control.Eof;
 using SharpEmf.Records.Control.Header;
 using SharpEmf.Records.Drawing;
 using SharpEmf.Records.Escape;
+using SharpEmf.Records.PathBracket;
 
 namespace SharpEmf.Records;
 
@@ -60,10 +61,16 @@ public abstract record EnhancedMetafileRecord(EmfRecordType Type, uint Size)
             EmfRecordType.EMR_LINETO => EmrLineTo.Parse,
             EmfRecordType.EMR_ARCTO => EmrArcTo.Parse,
             EmfRecordType.EMR_POLYDRAW => EmrPolyDraw.Parse,
+            EmfRecordType.EMR_BEGINPATH => EmrBeginPath.Parse,
+            EmfRecordType.EMR_ENDPATH => EmrEndPath.Parse,
+            EmfRecordType.EMR_CLOSEFIGURE => EmrCloseFigure.Parse,
             EmfRecordType.EMR_FILLPATH => EmrFillPath.Parse,
             EmfRecordType.EMR_STROKEANDFILLPATH => EmrStrokeAndFillPath.Parse,
             EmfRecordType.EMR_STROKEPATH => EmrStrokePath.Parse,
+            EmfRecordType.EMR_FLATTENPATH => EmrFlattenPath.Parse,
+            EmfRecordType.EMR_WIDENPATH => EmrWidenPath.Parse,
             EmfRecordType.EMR_SELECTCLIPPATH => EmrSelectClipPath.Parse,
+            EmfRecordType.EMR_ABORTPATH => EmrAbortPath.Parse,
             EmfRecordType.EMR_FILLRGN => EmrFillRgn.Parse,
             EmfRecordType.EMR_FRAMERGN => EmrFrameRgn.Parse,
             EmfRecordType.EMR_PAINTRGN => EmrPaintRgn.Parse,

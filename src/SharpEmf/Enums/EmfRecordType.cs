@@ -190,6 +190,49 @@ public enum EmfRecordType : uint
     EMR_POLYDRAW = 0x00000038,
 
     /// <summary>
+    /// Opens a path bracket for specifying the current path
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Once path bracket construction is open, an application can begin specifying records to
+    /// define the points that lie in the path. Path bracket construction MUST be closed by an
+    /// <see cref="EMR_ABORTPATH"/> or <see cref="EMR_ENDPATH"/> record.
+    /// </para>
+    /// <para>
+    /// When an application processes an <see cref="EMR_BEGINPATH"/> record, path bracket construction MUST NOT be open
+    /// </para>
+    /// </remarks>
+    EMR_BEGINPATH = 0x0000003B,
+
+    /// <summary>
+    /// Closes an open path bracket and selects the path into the playback device context
+    /// </summary>
+    EMR_ENDPATH = 0x0000003C,
+
+    /// <summary>
+    /// Closes an open figure in a path
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Processing this record closes the figure by drawing a line from the
+    /// current drawing position to the first point of the figure, and then it connects the lines by
+    /// using the current line join. If the figure is closed by processing an <see cref="EMR_LINETO"/> record
+    /// instead of this record, the current line cap is used to create the corner
+    /// instead of the line join. The line parameters are specified by the PenStyle field in the
+    /// current LogPen and LogPenEx objects
+    /// </para>
+    /// <para>
+    /// This record SHOULD be used only if there is an open figure in the path bracket.
+    /// A figure in a path is open unless it is explicitly closed by processing this record.
+    /// A figure can be open even if the current point is the same as the starting point.
+    /// </para>
+    /// <para>
+    /// After processing this record, adding a line or curve to the path bracket starts a new figure
+    /// </para>
+    /// </remarks>
+    EMR_CLOSEFIGURE = 0x0000003D,
+
+    /// <summary>
     /// Closes any open figures in the current path bracket and fills its interior by using the current brush and polygon-filling mode
     /// </summary>
     EMR_FILLPATH = 0x0000003E,
@@ -206,9 +249,24 @@ public enum EmfRecordType : uint
     EMR_STROKEPATH = 0x00000040,
 
     /// <summary>
+    /// Turns each curve in the path into a sequence of lines
+    /// </summary>
+    EMR_FLATTENPATH = 0x00000041,
+
+    /// <summary>
+    /// Redefines the current path bracket as the area that would be painted if the path were stroked using the current pen
+    /// </summary>
+    EMR_WIDENPATH = 0x00000042,
+
+    /// <summary>
     /// Specifies a clipping region as the current clipping region combined with the current path bracket, using the specified mode
     /// </summary>
     EMR_SELECTCLIPPATH = 0x00000043,
+
+    /// <summary>
+    /// Aborts a path bracket or discards the path from a closed path bracket
+    /// </summary>
+    EMR_ABORTPATH = 0x00000044,
 
     /// <summary>
     /// Fills the specified region by using the specified brush
