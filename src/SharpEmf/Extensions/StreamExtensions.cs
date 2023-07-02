@@ -66,6 +66,13 @@ internal static class StreamExtensions
         return Unsafe.As<byte, T>(ref MemoryMarshal.GetReference(buffer));
     }
 
+    internal static byte[] ReadByteArray(this Stream stream, int length)
+    {
+        var buffer = new byte[length];
+        stream.ReadExactly(buffer);
+        return buffer;
+    }
+
     internal static uint[] ReadUInt32Array(this Stream stream, int length)
     {
         Span<byte> buffer = length <= 1024 ? stackalloc byte[length * 4] : new byte[length * 4];

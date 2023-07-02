@@ -2,6 +2,7 @@
 using SharpEmf.Enums;
 using SharpEmf.Exceptions;
 using SharpEmf.Extensions;
+using SharpEmf.Records.Bitmap;
 using SharpEmf.Records.Clipping;
 using SharpEmf.Records.Control.Eof;
 using SharpEmf.Records.Control.Header;
@@ -75,6 +76,7 @@ public abstract record EnhancedMetafileRecord(EmfRecordType Type, uint Size)
             EmfRecordType.EMR_FRAMERGN => EmrFrameRgn.Parse,
             EmfRecordType.EMR_PAINTRGN => EmrPaintRgn.Parse,
             EmfRecordType.EMR_EXTSELECTCLIPRGN => EmrExtSelectClipRgn.Parse,
+            EmfRecordType.EMR_BITBLT => EmrBitBlt.Parse,
             EmfRecordType.EMR_EXTTEXTOUTA => EmrExtTextOutA.Parse,
             EmfRecordType.EMR_EXTTEXTOUTW => EmrExtTextOutW.Parse,
             EmfRecordType.EMR_POLYBEZIER16 => EmrPolyBezier16.Parse,
