@@ -77,6 +77,7 @@ public abstract record EnhancedMetafileRecord(EmfRecordType Type, uint Size)
             EmfRecordType.EMR_PAINTRGN => EmrPaintRgn.Parse,
             EmfRecordType.EMR_EXTSELECTCLIPRGN => EmrExtSelectClipRgn.Parse,
             EmfRecordType.EMR_BITBLT => EmrBitBlt.Parse,
+            EmfRecordType.EMR_STRETCHDIBITS => EmrStretchDiBits.Parse,
             EmfRecordType.EMR_EXTTEXTOUTA => EmrExtTextOutA.Parse,
             EmfRecordType.EMR_EXTTEXTOUTW => EmrExtTextOutW.Parse,
             EmfRecordType.EMR_POLYBEZIER16 => EmrPolyBezier16.Parse,
@@ -100,7 +101,7 @@ public abstract record EnhancedMetafileRecord(EmfRecordType Type, uint Size)
         return parseFunc(stream, type, size);
     }
 
-    private static EnhancedMetafileRecord SkipRecord(Stream stream, EmfRecordType recordType, uint size)
+    private static PlaceholderRecord SkipRecord(Stream stream, EmfRecordType recordType, uint size)
     {
         if (Enum.IsDefined(recordType))
         {
@@ -108,6 +109,9 @@ public abstract record EnhancedMetafileRecord(EmfRecordType Type, uint Size)
         }
 
         stream.Seek(size - 8, SeekOrigin.Current);
-        return null!;
+        return new PlaceholderRecord(recordType, size);
     }
 }
+
+// TODO: delete when all records are implemented
+public record PlaceholderRecord(EmfRecordType Type, uint Size) : EnhancedMetafileRecord(Type, Size);

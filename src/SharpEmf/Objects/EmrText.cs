@@ -97,7 +97,7 @@ public record EmrText
         DxBuffer = dxBuffer;
     }
 
-    public static EmrText Parse(Stream stream, EmfRecordType parentRecordType,  int parentSizeWithoutTextBuffer)
+    public static EmrText Parse(Stream stream, EmfRecordType parentRecordType, int parentSizeWithoutTextBuffer)
     {
         var reference = PointL.Parse(stream);
         var chars = stream.ReadUInt32();
