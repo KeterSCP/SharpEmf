@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics;
+using JetBrains.Annotations;
 using SharpEmf.Extensions;
 
 namespace SharpEmf.WmfTypes;
@@ -7,6 +8,7 @@ namespace SharpEmf.WmfTypes;
 /// Defines a rectangle
 /// </summary>
 [PublicAPI]
+[DebuggerDisplay("Left: {Left}, Top: {Top}, Right: {Right}, Bottom: {Bottom}")]
 public readonly struct RectL
 {
     /// <summary>
