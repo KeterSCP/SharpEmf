@@ -304,6 +304,13 @@ public enum EmfRecordType : uint
     EMR_BITBLT = 0x0000004C,
 
     /// <summary>
+    /// Specifies a block transfer of pixels from a source bitmap to a destination rectangle,
+    /// optionally in combination with a brush pattern, according to a specified raster operation,
+    /// stretching or compressing the output to fit the dimensions of the destination, if necessary
+    /// </summary>
+    EMR_STRETCHDIBITS = 0x00000051,
+
+    /// <summary>
     /// Draws an ASCII text string using the current font and text colors
     /// </summary>
     EMR_EXTTEXTOUTA = 0x00000053,

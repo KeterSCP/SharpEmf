@@ -24,11 +24,15 @@ public readonly struct ColorRef
     /// </summary>
     public byte Blue { get; }
 
-    private ColorRef(byte red, byte green, byte blue)
+    // DO NOT remove this field, it is required for proper calculation of the struct size
+    private readonly byte _reserved;
+
+    private ColorRef(byte red, byte green, byte blue, byte reserved)
     {
         Red = red;
         Green = green;
         Blue = blue;
+        _reserved = reserved;
     }
 
     public static ColorRef Parse(Stream stream)
@@ -43,6 +47,6 @@ public readonly struct ColorRef
             throw new EmfParseException($"Reserved byte must be 0x00, but was {reserved}");
         }
 
-        return new ColorRef((byte)red, (byte)green, (byte)blue);
+        return new ColorRef((byte)red, (byte)green, (byte)blue, (byte)reserved);
     }
 }
