@@ -116,6 +116,11 @@ public enum EmfRecordType : uint
     EMR_SELECTOBJECT = 0x00000025,
 
     /// <summary>
+    /// Defines a logical brush for filling figures in graphics operations
+    /// </summary>
+    EMR_CREATEBRUSHINDIRECT = 0x00000027,
+
+    /// <summary>
     /// Deletes a graphics object, clearing its index in the EMF object table
     /// </summary>
     EMR_DELETEOBJECT = 0x00000028,

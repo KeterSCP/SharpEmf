@@ -24,10 +24,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="Samples\sample_1.emf">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <None Update="Samples\sample_2.emf">
+      <None Update="Samples\*.emf">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>
