@@ -96,6 +96,11 @@ public enum EmfRecordType : uint
     EMR_OFFSETCLIPRGN = 0x0000001A,
 
     /// <summary>
+    /// Defines coordinates of the new drawing position in logical units
+    /// </summary>
+    EMR_MOVETOEX = 0x0000001B,
+
+    /// <summary>
     /// Defines a new clipping region that consists of the current clipping region intersected with the specified rectangle
     /// </summary>
     EMR_EXCLUDECLIPRECT = 0x0000001D,

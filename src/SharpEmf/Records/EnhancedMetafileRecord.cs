@@ -52,6 +52,7 @@ public abstract record EnhancedMetafileRecord(EmfRecordType Type, uint Size)
             EmfRecordType.EMR_SETPOLYFILLMODE => EmrSetPolyfillMode.Parse,
             EmfRecordType.EMR_SETPIXELV => EmrSetPixelV.Parse,
             EmfRecordType.EMR_OFFSETCLIPRGN => EmrOffsetClipRgn.Parse,
+            EmfRecordType.EMR_MOVETOEX => EmrMoveToEx.Parse,
             EmfRecordType.EMR_EXCLUDECLIPRECT => EmrExcludeClipRect.Parse,
             EmfRecordType.EMR_INTERSECTCLIPRECT => EmrIntersectClipRect.Parse,
             EmfRecordType.EMR_SELECTOBJECT => EmrSelectObject.Parse,
