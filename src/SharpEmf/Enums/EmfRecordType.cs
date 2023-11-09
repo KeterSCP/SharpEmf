@@ -76,6 +76,11 @@ public enum EmfRecordType : uint
     EMR_POLYPOLYGON = 0x00000008,
 
     /// <summary>
+    /// Defines polygon fill mode
+    /// </summary>
+    EMR_SETPOLYFILLMODE = 0x00000013,
+
+    /// <summary>
     /// Indicates the end of the metafile
     /// </summary>
     EMR_EOF = 0x0000000E,

@@ -9,6 +9,7 @@ using SharpEmf.Records.Control.Header;
 using SharpEmf.Records.Drawing;
 using SharpEmf.Records.Escape;
 using SharpEmf.Records.PathBracket;
+using SharpEmf.Records.State;
 
 namespace SharpEmf.Records;
 
@@ -47,6 +48,7 @@ public abstract record EnhancedMetafileRecord(EmfRecordType Type, uint Size)
             EmfRecordType.EMR_POLYLINETO => EmrPolyLineTo.Parse,
             EmfRecordType.EMR_POLYPOLYLINE => EmrPolyPolyline.Parse,
             EmfRecordType.EMR_POLYPOLYGON => EmrPolyPolygon.Parse,
+            EmfRecordType.EMR_SETPOLYFILLMODE => EmrSetPolyfillMode.Parse,
             EmfRecordType.EMR_SETPIXELV => EmrSetPixelV.Parse,
             EmfRecordType.EMR_OFFSETCLIPRGN => EmrOffsetClipRgn.Parse,
             EmfRecordType.EMR_EXCLUDECLIPRECT => EmrExcludeClipRect.Parse,
