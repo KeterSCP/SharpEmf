@@ -6,7 +6,7 @@ namespace SharpEmf.Enums;
 /// Defines values that specify how to calculate the region of a polygon that is to be filled
 /// </summary>
 [PublicAPI]
-public enum PolygonFillMode
+public enum PolygonFillMode : uint
 {
     /// <summary>
     /// Selects alternate mode (fills the area between odd-numbered and even-numbered polygon sides on each scan line)

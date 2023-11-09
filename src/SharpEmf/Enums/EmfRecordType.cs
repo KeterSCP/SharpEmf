@@ -106,6 +106,11 @@ public enum EmfRecordType : uint
     EMR_INTERSECTCLIPRECT = 0x0000001E,
 
     /// <summary>
+    /// Selects an object in the playback device context, which is identified by its index in the EMF object table
+    /// </summary>
+    EMR_SELECTOBJECT = 0x00000025,
+
+    /// <summary>
     /// Defines a line segment of an arc
     /// </summary>
     /// <remarks>

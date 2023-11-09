@@ -5,4 +5,4 @@ SharpEmf is a cross-platform .NET library for parsing EMF files. It does not dep
 Documentation for the EMF standard can be found [here](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-emf).
 
 **TODO**
-- Create a EMF to SVG converter
+- Create an EMF to SVG converter

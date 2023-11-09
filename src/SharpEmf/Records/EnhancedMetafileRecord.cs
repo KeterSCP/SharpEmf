@@ -8,6 +8,7 @@ using SharpEmf.Records.Control.Eof;
 using SharpEmf.Records.Control.Header;
 using SharpEmf.Records.Drawing;
 using SharpEmf.Records.Escape;
+using SharpEmf.Records.ObjectManipulation;
 using SharpEmf.Records.PathBracket;
 using SharpEmf.Records.State;
 
@@ -53,6 +54,7 @@ public abstract record EnhancedMetafileRecord(EmfRecordType Type, uint Size)
             EmfRecordType.EMR_OFFSETCLIPRGN => EmrOffsetClipRgn.Parse,
             EmfRecordType.EMR_EXCLUDECLIPRECT => EmrExcludeClipRect.Parse,
             EmfRecordType.EMR_INTERSECTCLIPRECT => EmrIntersectClipRect.Parse,
+            EmfRecordType.EMR_SELECTOBJECT => EmrSelectObject.Parse,
             EmfRecordType.EMR_ANGLEARC => EmrAngleArc.Parse,
             EmfRecordType.EMR_ELLIPSE => EmrEllipse.Parse,
             EmfRecordType.EMR_RECTANGLE => EmrRectangle.Parse,
