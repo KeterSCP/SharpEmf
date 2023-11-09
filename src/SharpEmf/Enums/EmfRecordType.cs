@@ -111,6 +111,11 @@ public enum EmfRecordType : uint
     EMR_SELECTOBJECT = 0x00000025,
 
     /// <summary>
+    /// Deletes a graphics object, clearing its index in the EMF object table
+    /// </summary>
+    EMR_DELETEOBJECT = 0x00000028,
+
+    /// <summary>
     /// Defines a line segment of an arc
     /// </summary>
     /// <remarks>

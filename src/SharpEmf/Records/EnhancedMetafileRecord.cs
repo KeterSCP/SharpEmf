@@ -55,6 +55,7 @@ public abstract record EnhancedMetafileRecord(EmfRecordType Type, uint Size)
             EmfRecordType.EMR_EXCLUDECLIPRECT => EmrExcludeClipRect.Parse,
             EmfRecordType.EMR_INTERSECTCLIPRECT => EmrIntersectClipRect.Parse,
             EmfRecordType.EMR_SELECTOBJECT => EmrSelectObject.Parse,
+            EmfRecordType.EMR_DELETEOBJECT => EmrDeleteObject.Parse,
             EmfRecordType.EMR_ANGLEARC => EmrAngleArc.Parse,
             EmfRecordType.EMR_ELLIPSE => EmrEllipse.Parse,
             EmfRecordType.EMR_RECTANGLE => EmrRectangle.Parse,
