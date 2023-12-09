@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using JetBrains.Annotations;
-using SharpEmf.Exceptions;
+﻿using JetBrains.Annotations;
 
 namespace SharpEmf.Objects;
 

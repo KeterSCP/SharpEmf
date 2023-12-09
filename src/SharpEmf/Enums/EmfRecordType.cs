@@ -76,6 +76,37 @@ public enum EmfRecordType : uint
     EMR_POLYPOLYGON = 0x00000008,
 
     /// <summary>
+    /// Defines the window extent
+    /// </summary>
+    EMR_SETWINDOWEXTEX = 0x00000009,
+
+    /// <summary>
+    /// Defines the window origin
+    /// </summary>
+    EMR_SETWINDOWORGEX = 0x0000000A,
+
+    /// <summary>
+    /// Defines the viewport extent
+    /// </summary>
+    EMR_SETVIEWPORTEXTEX = 0x0000000B,
+
+    /// <summary>
+    /// Defines the viewport origin
+    /// </summary>
+    EMR_SETVIEWPORTORGEX = 0x0000000C,
+
+    /// <summary>
+    /// Defines the mapping mode, which defines the unit of measure used to transform page space units into device space units,
+    /// and defines the orientation of the device's X and Y axes
+    /// </summary>
+    EMR_SETMAPMODE = 0x00000011,
+
+    /// <summary>
+    /// Defines the background mix mode, which is used with text, hatched brushes, and pen styles that are not solid lines
+    /// </summary>
+    EMR_SETBKMODE = 0x00000012,
+
+    /// <summary>
     /// Defines polygon fill mode
     /// </summary>
     EMR_SETPOLYFILLMODE = 0x00000013,
@@ -109,6 +140,26 @@ public enum EmfRecordType : uint
     /// Defines a new clipping region from the intersection of the current clipping region and the specified rectangle
     /// </summary>
     EMR_INTERSECTCLIPRECT = 0x0000001E,
+
+    /// <summary>
+    /// Saves the current state of the playback device context in an array of states
+    /// </summary>
+    EMR_SAVEDC = 0x00000021,
+
+    /// <summary>
+    /// Restores the playback device context to the specified state, which was saved by a preceding <see cref="EMR_SAVEDC"/> record
+    /// </summary>
+    EMR_RESTOREDC = 0x00000022,
+
+    /// <summary>
+    /// Defines a two-dimensional linear transform between world space and page space
+    /// </summary>
+    EMR_SETWORLDTRANSFORM = 0x00000023,
+
+    /// <summary>
+    /// Redefines the world transform by using the specified mode
+    /// </summary>
+    EMR_MODIFYWORLDTRANSFORM = 0x00000024,
 
     /// <summary>
     /// Selects an object in the playback device context, which is identified by its index in the EMF object table
@@ -368,6 +419,11 @@ public enum EmfRecordType : uint
 
     /// <inheritdoc cref="EMR_POLYDRAW"/>
     EMR_POLYDRAW16 = 0x0000005C,
+
+    /// <summary>
+    /// Defines an extended logical pen that has the specified style, width, color, and brush attributes
+    /// </summary>
+    EMR_EXTCREATEPEN = 0x0000005F,
 
     /// <summary>
     /// Draws one or more ASCII text strings using the current font and text colors

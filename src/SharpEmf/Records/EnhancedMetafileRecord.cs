@@ -12,6 +12,7 @@ using SharpEmf.Records.ObjectCreation;
 using SharpEmf.Records.ObjectManipulation;
 using SharpEmf.Records.PathBracket;
 using SharpEmf.Records.State;
+using SharpEmf.Records.Transform;
 
 namespace SharpEmf.Records;
 
@@ -50,12 +51,22 @@ public abstract record EnhancedMetafileRecord(EmfRecordType Type, uint Size)
             EmfRecordType.EMR_POLYLINETO => EmrPolyLineTo.Parse,
             EmfRecordType.EMR_POLYPOLYLINE => EmrPolyPolyline.Parse,
             EmfRecordType.EMR_POLYPOLYGON => EmrPolyPolygon.Parse,
+            EmfRecordType.EMR_SETWINDOWEXTEX => EmrSetWindowExtEx.Parse,
+            EmfRecordType.EMR_SETWINDOWORGEX => EmrSetWindowOrgEx.Parse,
+            EmfRecordType.EMR_SETVIEWPORTEXTEX => EmrSetViewportExtEx.Parse,
+            EmfRecordType.EMR_SETVIEWPORTORGEX => EmrSetViewportOrgEx.Parse,
+            EmfRecordType.EMR_SETMAPMODE => EmrSetMapMode.Parse,
+            EmfRecordType.EMR_SETBKMODE => EmrSetBkMode.Parse,
             EmfRecordType.EMR_SETPOLYFILLMODE => EmrSetPolyfillMode.Parse,
             EmfRecordType.EMR_SETPIXELV => EmrSetPixelV.Parse,
             EmfRecordType.EMR_OFFSETCLIPRGN => EmrOffsetClipRgn.Parse,
             EmfRecordType.EMR_MOVETOEX => EmrMoveToEx.Parse,
             EmfRecordType.EMR_EXCLUDECLIPRECT => EmrExcludeClipRect.Parse,
             EmfRecordType.EMR_INTERSECTCLIPRECT => EmrIntersectClipRect.Parse,
+            EmfRecordType.EMR_SAVEDC => EmrSaveDC.Parse,
+            EmfRecordType.EMR_RESTOREDC => EmrRestoreDC.Parse,
+            EmfRecordType.EMR_SETWORLDTRANSFORM => EmrSetWorldTransform.Parse,
+            EmfRecordType.EMR_MODIFYWORLDTRANSFORM => EmrModifyWorldTransform.Parse,
             EmfRecordType.EMR_SELECTOBJECT => EmrSelectObject.Parse,
             EmfRecordType.EMR_CREATEBRUSHINDIRECT => EmrCreateBrushIndirect.Parse,
             EmfRecordType.EMR_DELETEOBJECT => EmrDeleteObject.Parse,
@@ -96,6 +107,7 @@ public abstract record EnhancedMetafileRecord(EmfRecordType Type, uint Size)
             EmfRecordType.EMR_POLYPOLYLINE16 => EmrPolyPolyline16.Parse,
             EmfRecordType.EMR_POLYPOLYGON16 => EmrPolyPolygon16.Parse,
             EmfRecordType.EMR_POLYDRAW16 => EmrPolyDraw16.Parse,
+            EmfRecordType.EMR_EXTCREATEPEN => EmrExtCreatePen.Parse,
             EmfRecordType.EMR_POLYTEXTOUTA => EmrPolyTextOutA.Parse,
             EmfRecordType.EMR_POLYTEXTOUTW => EmrPolyTextOutW.Parse,
             EmfRecordType.EMR_DRAWESCAPE => EmrDrawEscape.Parse,

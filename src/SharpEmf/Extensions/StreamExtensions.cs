@@ -68,6 +68,11 @@ internal static class StreamExtensions
 
     internal static byte[] ReadByteArray(this Stream stream, int length)
     {
+        if (length == 0)
+        {
+            return Array.Empty<byte>();
+        }
+
         var buffer = new byte[length];
         stream.ReadExactly(buffer);
         return buffer;
@@ -75,6 +80,11 @@ internal static class StreamExtensions
 
     internal static uint[] ReadUInt32Array(this Stream stream, int length)
     {
+        if (length == 0)
+        {
+            return Array.Empty<uint>();
+        }
+
         Span<byte> buffer = length <= 1024 ? stackalloc byte[length * 4] : new byte[length * 4];
         stream.ReadExactly(buffer);
 

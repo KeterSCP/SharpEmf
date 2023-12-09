@@ -147,6 +147,11 @@ public record EmrBitBlt : EnhancedMetafileRecord, IEmfParsable<EmrBitBlt>
 
     public static EmrBitBlt Parse(Stream stream, EmfRecordType recordType, uint size)
     {
+        var positionBeforeParsing =
+            stream.Position -
+            // Base record fields
+            (Unsafe.SizeOf<EmfRecordType>() + Unsafe.SizeOf<uint>());
+
         var bounds = RectL.Parse(stream);
         var xDest = stream.ReadInt32();
         var yDest = stream.ReadInt32();
@@ -163,26 +168,8 @@ public record EmrBitBlt : EnhancedMetafileRecord, IEmfParsable<EmrBitBlt>
         var offBitsSrc = stream.ReadUInt32();
         var cbBitsSrc = stream.ReadUInt32();
 
-        var selfSizeWithoutBuffers =
-            // Base record fields
-            Unsafe.SizeOf<EmfRecordType>() +
-            Unsafe.SizeOf<uint>() +
-            // Self fields
-            Unsafe.SizeOf<RectL>() +
-            Unsafe.SizeOf<int>() +
-            Unsafe.SizeOf<int>() +
-            Unsafe.SizeOf<int>() +
-            Unsafe.SizeOf<int>() +
-            Unsafe.SizeOf<TernaryRasterOperation>() +
-            Unsafe.SizeOf<int>() +
-            Unsafe.SizeOf<int>() +
-            Unsafe.SizeOf<XForm>() +
-            Unsafe.SizeOf<ColorRef>() +
-            Unsafe.SizeOf<DIBColors>() +
-            Unsafe.SizeOf<uint>() +
-            Unsafe.SizeOf<uint>() +
-            Unsafe.SizeOf<uint>() +
-            Unsafe.SizeOf<uint>();
+        var positionAfterParsing = stream.Position;
+        var selfSizeWithoutBuffers = positionAfterParsing - positionBeforeParsing;
 
         long seekOffset = 0;
         if (offBmiSrc != 0)

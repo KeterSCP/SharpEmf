@@ -143,13 +143,8 @@ public record EmfMetafileHeader : EnhancedMetafileRecord, IEmfParsable<EmfMetafi
 
         var palEntries = stream.ReadUInt32();
 
-        var device = new SizeL(
-            cx: stream.ReadUInt32(),
-            cy: stream.ReadUInt32());
-
-        var millimeters = new SizeL(
-            cx: stream.ReadUInt32(),
-            cy: stream.ReadUInt32());
+        var device = SizeL.Parse(stream);
+        var millimeters = SizeL.Parse(stream);
 
         var baseHeader = new EmfMetafileHeader(
             recordType: recordType,

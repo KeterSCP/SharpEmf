@@ -1,4 +1,5 @@
 ﻿using JetBrains.Annotations;
+using SharpEmf.Extensions;
 
 namespace SharpEmf.WmfTypes;
 
@@ -18,9 +19,13 @@ public readonly struct SizeL
     /// </summary>
     public uint Cy { get; }
 
-    public SizeL(uint cx, uint cy)
+    private SizeL(uint cx, uint cy)
     {
         Cx = cx;
         Cy = cy;
     }
+
+    public static SizeL Parse(Stream stream) => new(
+        cx: stream.ReadUInt32(),
+        cy: stream.ReadUInt32());
 }
