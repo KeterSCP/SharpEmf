@@ -33,7 +33,7 @@ namespace SharpEmf.Objects;
 /// </code>
 /// </remarks>
 [PublicAPI]
-public class LogPenEx
+public readonly struct LogPenEx
 {
     /// <summary>
     /// Specifies the pen style
