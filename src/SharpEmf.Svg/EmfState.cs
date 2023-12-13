@@ -13,4 +13,7 @@ internal class EmfState
     public GraphicsObject[] ObjectTable { get; set; }
     public PlaybackDeviceContext CurrentPlaybackDeviceContext { get; } = new();
     public float Scaling { get; set; }
+
+    public bool InPath { get; set; }
+
 }

@@ -4,6 +4,7 @@ using SharpEmf.Records.Control.Header;
 using SharpEmf.Records.Drawing;
 using SharpEmf.Records.ObjectCreation;
 using SharpEmf.Records.ObjectManipulation;
+using SharpEmf.Records.PathBracket;
 using SharpEmf.Records.State;
 
 namespace SharpEmf.Svg;
@@ -48,11 +49,29 @@ public static class EmfSvgWriter
                 case EmrSelectObject selectObject:
                     HandleSelectObject(state, selectObject);
                     break;
+                case EmrDeleteObject deleteObject:
+                    HandleDeleteObject(state, deleteObject);
+                    break;
                 case EmrExtCreatePen extCreatePen:
                     HandleExtCreatePen(state, extCreatePen);
                     break;
                 case EmrPolyPolygon16 polyPolygon16:
                     HandlePolyPolygon16(sb, state, polyPolygon16);
+                    break;
+                case EmrBeginPath:
+                    HandleBeginPath(sb, state);
+                    break;
+                case EmrEndPath:
+                    HandleEndPath(sb, state);
+                    break;
+                case EmrMoveToEx moveToEx:
+                    HandleMoveToEx(sb, state, moveToEx);
+                    break;
+                case EmrPolyBezierTo16 polyBezierTo16:
+                    HandlePolybezierTo16(sb, state, polyBezierTo16);
+                    break;
+                case EmrCloseFigure:
+                    sb.Append("Z ");
                     break;
             }
         }
@@ -146,6 +165,12 @@ public static class EmfSvgWriter
         }
     }
 
+    private static void HandleDeleteObject(EmfState state, EmrDeleteObject deleteObject)
+    {
+        var index = deleteObject.IHObject;
+        state.ObjectTable[index] = default;
+    }
+
     private static void HandleExtCreatePen(EmfState state, EmrExtCreatePen extCreatePen)
     {
         var index = extCreatePen.IHPen;
@@ -188,16 +213,55 @@ public static class EmfSvgWriter
         AppendFill(svgSb, state);
         AppendStroke(svgSb, state);
 
-        // switch (state.CurrentPlaybackDeviceContext.SelectedGraphicsObject.LogPen.PenStyle)
-        // {
-        //     case PenStyle.PS_COSMETIC:
-        //         sb.Append($"stroke-width=\"{stroke}\"");
-        //         break;
-        //     case PenStyle.PS_GEOMETRIC:
-        //         sb.Append($"stroke-width=\"{stroke}\"");
-        //         break;
-        // }
+        svgSb.AppendLine(" />");
+    }
 
+    private static void HandleBeginPath(StringBuilder svgSb, EmfState state)
+    {
+        state.InPath = true;
+
+        var scalingForMapMode = state.GetScalingForCurrentMapMode();
+        var scaleMatrix = $"matrix({scalingForMapMode.X},0,0,{scalingForMapMode.Y},0,0)";
+
+        svgSb.Append($"<path transform=\"{scaleMatrix}\" d=\"");
+    }
+
+    private static void HandleMoveToEx(StringBuilder svgSb, EmfState state, EmrMoveToEx moveToEx)
+    {
+        if (state.InPath)
+        {
+            svgSb.Append($"M {moveToEx.Offset.X} {moveToEx.Offset.Y} ");
+        }
+    }
+
+    private static void HandlePolybezierTo16(StringBuilder svgSb, EmfState state, EmrPolyBezierTo16 polyBezierTo16)
+    {
+        if (!state.InPath)
+        {
+            return;
+        }
+
+        var currentPointCounter = 0;
+
+        foreach (var point in polyBezierTo16.APoints)
+        {
+            if (currentPointCounter % 3 == 0)
+            {
+                svgSb.Append("C ");
+            }
+            svgSb.Append($"{point.X} {point.Y} ");
+
+            currentPointCounter++;
+        }
+    }
+
+    private static void HandleEndPath(StringBuilder svgSb, EmfState state)
+    {
+        state.InPath = false;
+        svgSb.Append("\" ");
+
+        AppendFill(svgSb, state);
+        AppendStroke(svgSb, state);
 
         svgSb.AppendLine(" />");
     }
@@ -241,9 +305,22 @@ public static class EmfSvgWriter
     private static void AppendStroke(StringBuilder svgSb, EmfState state)
     {
         // TODO: use scaling from state
-        if (state.CurrentPlaybackDeviceContext.SelectedPen.PenStyle is PenStyle.PS_NULL)
+        var selectedPen = state.CurrentPlaybackDeviceContext.SelectedPen;
+        if (selectedPen.PenStyle is PenStyle.PS_NULL)
         {
             svgSb.Append("stroke=\"none\" ");
         }
+
+        // switch (state.CurrentPlaybackDeviceContext.SelectedGraphicsObject.LogPen.PenStyle)
+        // {
+        //     case PenStyle.PS_COSMETIC:
+        //         sb.Append($"stroke-width=\"{stroke}\"");
+        //         break;
+        //     case PenStyle.PS_GEOMETRIC:
+        //         sb.Append($"stroke-width=\"{stroke}\"");
+        //         break;
+        // }
+
+        // TODO: handle other pen styles
     }
 }
