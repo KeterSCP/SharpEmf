@@ -14,34 +14,51 @@ internal static class EmfObjectManipulationRecordsHandlers
         if ((index & 0x80000000) != 0)
         {
             var stockObject = (StockObject)index;
-            if (stockObject is StockObject.WHITE_BRUSH)
+
+            switch (stockObject)
             {
-                state.CurrentPlaybackDeviceContext.SelectedBrush = new LogBrushEx(
-                    brushStyle: BrushStyle.BS_SOLID,
-                    color: new ColorRef(0xFF, 0xFF, 0xFF));
+                case StockObject.WHITE_BRUSH:
+                    state.CurrentPlaybackDeviceContext.SelectedBrush = new LogBrushEx(
+                        brushStyle: BrushStyle.BS_SOLID,
+                        color: new ColorRef(0xFF, 0xFF, 0xFF));
+                    break;
+                case StockObject.LTGRAY_BRUSH:
+                    state.CurrentPlaybackDeviceContext.SelectedBrush = new LogBrushEx(
+                        brushStyle: BrushStyle.BS_SOLID,
+                        color: new ColorRef(0xC0, 0xC0, 0xC0));
+                    break;
+                case StockObject.GRAY_BRUSH:
+                    state.CurrentPlaybackDeviceContext.SelectedBrush = new LogBrushEx(
+                        brushStyle: BrushStyle.BS_SOLID,
+                        color: new ColorRef(0x80, 0x80, 0x80));
+                    break;
+                case StockObject.DKGRAY_BRUSH:
+                    state.CurrentPlaybackDeviceContext.SelectedBrush = new LogBrushEx(
+                        brushStyle: BrushStyle.BS_SOLID,
+                        color: new ColorRef(0x40, 0x40, 0x40));
+                    break;
+                case StockObject.NULL_BRUSH:
+                    state.CurrentPlaybackDeviceContext.SelectedBrush = LogBrushEx.Null;
+                    break;
+                case StockObject.WHITE_PEN:
+                    state.CurrentPlaybackDeviceContext.SelectedPen = new LogPenEx(
+                        penStyle: PenStyle.PS_COSMETIC | PenStyle.PS_SOLID,
+                        color: new ColorRef(0xFF, 0xFF, 0xFF));
+                    break;
+                case StockObject.BLACK_PEN:
+                    state.CurrentPlaybackDeviceContext.SelectedPen = new LogPenEx(
+                        penStyle: PenStyle.PS_COSMETIC | PenStyle.PS_SOLID,
+                        color: new ColorRef(0x00, 0x00, 0x00));
+                    break;
+                case StockObject.NULL_PEN:
+                    state.CurrentPlaybackDeviceContext.SelectedPen = LogPenEx.Null;
+                    break;
+                default:
+                    // TODO: handle other stock objects
+                    break;
             }
-            else if (stockObject is StockObject.LTGRAY_BRUSH)
-            {
-                state.CurrentPlaybackDeviceContext.SelectedBrush = new LogBrushEx(
-                    brushStyle: BrushStyle.BS_SOLID,
-                    color: new ColorRef(0xC0, 0xC0, 0xC0));
-            }
-            else if (stockObject is StockObject.GRAY_BRUSH)
-            {
-                state.CurrentPlaybackDeviceContext.SelectedBrush = new LogBrushEx(
-                    brushStyle: BrushStyle.BS_SOLID,
-                    color: new ColorRef(0x80, 0x80, 0x80));
-            }
-            else if (stockObject is StockObject.DKGRAY_BRUSH)
-            {
-                state.CurrentPlaybackDeviceContext.SelectedBrush = new LogBrushEx(
-                    brushStyle: BrushStyle.BS_SOLID,
-                    color: new ColorRef(0x40, 0x40, 0x40));
-            }
-            else if (stockObject is StockObject.NULL_BRUSH)
-            {
-                state.CurrentPlaybackDeviceContext.SelectedBrush = LogBrushEx.Null;
-            }
+
+            return;
         }
 
         var graphicsObject = state.ObjectTable[index];

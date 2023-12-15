@@ -89,6 +89,14 @@ public readonly struct LogPenEx
     /// </remarks>
     public IReadOnlyList<PenStyle> StyleEntry { get; }
 
+    public LogPenEx(PenStyle penStyle, ColorRef color)
+    {
+        PenStyle = penStyle;
+        ColorRef = color;
+        Width = 1;
+        BrushStyle = BrushStyle.BS_SOLID;
+    }
+
     private LogPenEx(PenStyle penStyle, uint width, BrushStyle brushStyle, ColorRef colorRef, HatchStyle brushHatch, uint numStyleEntries, IReadOnlyList<PenStyle> styleEntry)
     {
         PenStyle = penStyle;
@@ -99,6 +107,8 @@ public readonly struct LogPenEx
         NumStyleEntries = numStyleEntries;
         StyleEntry = styleEntry;
     }
+
+    public static LogPenEx Null { get; } = new(PenStyle.PS_NULL, color: default);
 
     public static LogPenEx Parse(Stream stream)
     {

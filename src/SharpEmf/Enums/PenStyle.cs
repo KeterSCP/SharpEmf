@@ -7,6 +7,7 @@ namespace SharpEmf.Enums;
 /// A pen style is a combination of pen type, line style, line cap, and line join
 /// </summary>
 [PublicAPI]
+[Flags]
 public enum PenStyle : uint
 {
     /// <summary>
