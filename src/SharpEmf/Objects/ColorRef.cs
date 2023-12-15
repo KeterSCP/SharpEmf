@@ -26,6 +26,14 @@ public readonly struct ColorRef
     // DO NOT remove this field, it is required for proper calculation of the struct size
     private readonly byte _reserved;
 
+    public ColorRef(byte red, byte green, byte blue)
+    {
+        Red = red;
+        Green = green;
+        Blue = blue;
+        _reserved = 0;
+    }
+
     private ColorRef(byte red, byte green, byte blue, byte reserved)
     {
         Red = red;
