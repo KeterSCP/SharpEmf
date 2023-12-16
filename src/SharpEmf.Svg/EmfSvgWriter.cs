@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using SharpEmf.Records.Bitmap;
 using SharpEmf.Records.Drawing;
 using SharpEmf.Records.ObjectCreation;
 using SharpEmf.Records.ObjectManipulation;
@@ -70,7 +71,13 @@ public static class EmfSvgWriter
                     EmfDrawingRecordsHandlers.HandlePolybezierTo16(sb, state, polyBezierTo16);
                     break;
                 case EmrCloseFigure:
-                    EmfPathBracketRecordsHandlers.HandleCloseFigure(sb);
+                    EmfPathBracketRecordsHandlers.HandleCloseFigure(sb, state);
+                    break;
+                case EmrStretchDiBits stretchDiBits:
+                    EmfBitmapRecordsHandlers.HandleStretchDIBits(sb, state, stretchDiBits);
+                    break;
+                default:
+                    Console.WriteLine($"Skipped record: {record.Type}");
                     break;
             }
         }

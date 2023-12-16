@@ -25,7 +25,7 @@ internal static class EmfPathBracketRecordsHandlers
         svgSb.AppendLine(" />");
     }
 
-    public static void HandleCloseFigure(StringBuilder svgSb)
+    public static void HandleCloseFigure(StringBuilder svgSb, EmfState state)
     {
         svgSb.Append("Z ");
     }

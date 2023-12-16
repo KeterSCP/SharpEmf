@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using SharpEmf.Enums;
 using SharpEmf.Extensions;
 using SharpEmf.WmfTypes;
+using SharpEmf.WmfTypes.Bitmap;
 
 namespace SharpEmf.Records.Bitmap;
 
@@ -96,12 +97,12 @@ public record EmrStretchDiBits : EnhancedMetafileRecord
     /// <summary>
     /// The source bitmap header
     /// </summary>
-    public IReadOnlyList<byte> BmiSrc { get; }
+    public BitmapInfoHeader BmiHeader { get; }
 
     /// <summary>
     /// The source bitmap bits
     /// </summary>
-    public IReadOnlyList<byte> BitsSrc { get; }
+    public byte[] BitsSrc { get; }
 
     private EmrStretchDiBits(
         EmfRecordType recordType,
@@ -121,8 +122,8 @@ public record EmrStretchDiBits : EnhancedMetafileRecord
         TernaryRasterOperation bitBltRasterOperation,
         int cxDest,
         int cyDest,
-        IReadOnlyList<byte> bmiSrc,
-        IReadOnlyList<byte> bitsSrc) : base(recordType, size)
+        BitmapInfoHeader bmiHeader,
+        byte[] bitsSrc) : base(recordType, size)
     {
         Bounds = bounds;
         XDest = xDest;
@@ -139,12 +140,17 @@ public record EmrStretchDiBits : EnhancedMetafileRecord
         BitBltRasterOperation = bitBltRasterOperation;
         CXDest = cxDest;
         CYDest = cyDest;
-        BmiSrc = bmiSrc;
+        BmiHeader = bmiHeader;
         BitsSrc = bitsSrc;
     }
 
     public static EmrStretchDiBits Parse(Stream stream, EmfRecordType recordType, uint size)
     {
+        var positionBeforeParsing =
+            stream.Position -
+            // Base record fields
+            (Unsafe.SizeOf<EmfRecordType>() + Unsafe.SizeOf<uint>());
+
         var bounds = RectL.Parse(stream);
         var xDest = stream.ReadInt32();
         var yDest = stream.ReadInt32();
@@ -161,26 +167,8 @@ public record EmrStretchDiBits : EnhancedMetafileRecord
         var cxDest = stream.ReadInt32();
         var cyDest = stream.ReadInt32();
 
-        var selfSizeWithoutBuffers =
-            // Base record fields
-            Unsafe.SizeOf<EmfRecordType>() +
-            Unsafe.SizeOf<uint>() +
-            // Self fields
-            Unsafe.SizeOf<RectL>() +
-            Unsafe.SizeOf<int>() +
-            Unsafe.SizeOf<int>() +
-            Unsafe.SizeOf<int>() +
-            Unsafe.SizeOf<int>() +
-            Unsafe.SizeOf<int>() +
-            Unsafe.SizeOf<int>() +
-            Unsafe.SizeOf<uint>() +
-            Unsafe.SizeOf<uint>() +
-            Unsafe.SizeOf<uint>() +
-            Unsafe.SizeOf<uint>() +
-            Unsafe.SizeOf<DIBColors>() +
-            Unsafe.SizeOf<TernaryRasterOperation>() +
-            Unsafe.SizeOf<int>() +
-            Unsafe.SizeOf<int>();
+        var positionAfterParsing = stream.Position;
+        var selfSizeWithoutBuffers = positionAfterParsing - positionBeforeParsing;
 
         long seekOffset = 0;
         if (offBmiSrc != 0)
@@ -189,11 +177,11 @@ public record EmrStretchDiBits : EnhancedMetafileRecord
             stream.Seek(seekOffset, SeekOrigin.Current);
         }
 
-        var bmiSrc = stream.ReadByteArray((int)cbBmiSrc);
+        var bmiSrc = BitmapInfoHeader.Parse(stream);
 
         if (offBitsSrc != 0)
         {
-            seekOffset = offBitsSrc - (seekOffset + bmiSrc.Length + selfSizeWithoutBuffers);
+            seekOffset = offBitsSrc - (seekOffset + bmiSrc.Size + selfSizeWithoutBuffers);
             stream.Seek(seekOffset, SeekOrigin.Current);
         }
 
