@@ -4,10 +4,15 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\SharpEmf\SharpEmf.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="SkiaSharp" Version="2.88.6" />
     </ItemGroup>
 
 </Project>

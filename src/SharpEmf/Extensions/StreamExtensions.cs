@@ -75,6 +75,8 @@ internal static class StreamExtensions
 
         var buffer = new byte[length];
         stream.ReadExactly(buffer);
+        buffer.AsSpan().Reverse();
+
         return buffer;
     }
 

@@ -7,18 +7,13 @@ internal static class EmfBitmapRecordsHandlers
 {
     public static void HandleStretchDIBits(StringBuilder svgSb, EmfState state, EmrStretchDiBits stretchDiBits)
     {
-        // TODO: fix this
-        var bitmapBase64 = Convert.ToBase64String(stretchDiBits.BitsSrc);
-
-        var scalingForMapMode = state.GetScalingForCurrentMapMode();
-        var scaleMatrix = $"matrix({scalingForMapMode.X},0,0,{scalingForMapMode.Y},0,0)";
+        var bitmapBase64 = BitmapUtils.DibToPngBase64(stretchDiBits.BitsSrc, stretchDiBits.BmiHeader);
 
         var x = stretchDiBits.XDest;
         var y = stretchDiBits.YDest;
         var width = stretchDiBits.CXDest;
         var height = stretchDiBits.CYDest;
 
-
-        svgSb.AppendLine($"<image transform=\"{scaleMatrix}\" x=\"{x}\" y=\"{y}\" width=\"{width}\" height=\"{height}\" xlink:href=\"data:image/bmp;base64,{bitmapBase64}\" />");
+        svgSb.AppendLine($"<image x=\"{x}\" y=\"{y}\" width=\"{width}\" height=\"{height}\" href=\"data:image/png;base64,{bitmapBase64}\" />");
     }
 }
