@@ -62,4 +62,16 @@ internal static class EmfDrawingRecordsHandlers
             currentPointCounter++;
         }
     }
+
+    public static void HandleExtTextOutW(StringBuilder svgSb, EmfState state, EmrExtTextOutW extTextOutW)
+    {
+        var scalingForMapMode = state.GetScalingForCurrentMapMode();
+        var scaleMatrix = $"matrix({scalingForMapMode.X},0,0,{scalingForMapMode.Y},0,0)";
+
+        var text = extTextOutW.WEmrText.StringBuffer;
+
+        var (x, y) = state.ScalePointForCurrentMapMode(extTextOutW.WEmrText.Reference.X, extTextOutW.WEmrText.Reference.Y);
+
+        svgSb.AppendLine($"<text transform=\"{scaleMatrix}\" x=\"{x}\" y=\"{y}\">{text}</text>");
+    }
 }

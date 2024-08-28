@@ -44,6 +44,7 @@ public readonly struct ColorRef
 
     public static ColorRef Parse(Stream stream)
     {
+        // TODO: read this as Int32 and reinterpret as ColorRef via Unsafe.BitCast to reduce the number of stream reads
         var red = stream.ReadByte();
         var green = stream.ReadByte();
         var blue = stream.ReadByte();

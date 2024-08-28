@@ -25,6 +25,7 @@ public readonly struct SizeL
         Cy = cy;
     }
 
+    // TODO: read this as Int64 and reinterpret as SizeL via Unsafe.BitCast to reduce the number of stream reads
     public static SizeL Parse(Stream stream) => new(
         cx: stream.ReadUInt32(),
         cy: stream.ReadUInt32());

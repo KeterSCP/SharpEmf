@@ -76,8 +76,14 @@ public static class EmfSvgWriter
                 case EmrStretchDiBits stretchDiBits:
                     EmfBitmapRecordsHandlers.HandleStretchDIBits(sb, state, stretchDiBits);
                     break;
+                case EmrSetTextColor setTextColor:
+                    EmfStateRecordsHandlers.HandleSetTextColor(state, setTextColor);
+                    break;
+                case EmrExtTextOutW extTextOutW:
+                    EmfDrawingRecordsHandlers.HandleExtTextOutW(sb, state, extTextOutW);
+                    break;
                 default:
-                    Console.WriteLine($"Skipped record: {record.Type}");
+                    Console.WriteLine($"Skipped EMF to SVG conversion of record with type: {(Enum.IsDefined(record.Type) ? record.Type : record.Type.ToString("X"))}");
                     break;
             }
         }

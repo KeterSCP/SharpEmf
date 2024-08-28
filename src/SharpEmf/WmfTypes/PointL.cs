@@ -27,6 +27,7 @@ public readonly struct PointL
         Y = y;
     }
 
+    // TODO: read this as Int64 and reinterpret as PointL via Unsafe.BitCast to reduce the number of stream reads
     public static PointL Parse(Stream stream) => new(
         x: stream.ReadInt32(),
         y: stream.ReadInt32());

@@ -51,4 +51,9 @@ internal static class EmfStateRecordsHandlers
             // TODO: set current position in state
         }
     }
+
+    public static void HandleSetTextColor(EmfState state, EmrSetTextColor setTextColor)
+    {
+        state.CurrentPlaybackDeviceContext.TextColor = setTextColor.Color;
+    }
 }

@@ -54,6 +54,7 @@ internal static class EmfObjectManipulationRecordsHandlers
                     state.CurrentPlaybackDeviceContext.SelectedPen = LogPenEx.Null;
                     break;
                 default:
+                    Console.WriteLine($"Warning: Stock object {stockObject} is not supported");
                     // TODO: handle other stock objects
                     break;
             }

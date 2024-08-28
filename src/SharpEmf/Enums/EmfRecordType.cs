@@ -96,6 +96,11 @@ public enum EmfRecordType : uint
     EMR_SETVIEWPORTORGEX = 0x0000000C,
 
     /// <summary>
+    /// Defines the origin of the current brush
+    /// </summary>
+    EMR_SETBRUSHORGEX = 0x0000000D,
+
+    /// <summary>
     /// Defines the mapping mode, which defines the unit of measure used to transform page space units into device space units,
     /// and defines the orientation of the device's X and Y axes
     /// </summary>
@@ -120,6 +125,11 @@ public enum EmfRecordType : uint
     /// Defines the color of the pixel at the specified logical coordinates
     /// </summary>
     EMR_SETPIXELV = 0x0000000F,
+
+    /// <summary>
+    /// Defines the current text foreground color
+    /// </summary>
+    EMR_SETTEXTCOLOR = 0x00000018,
 
     /// <summary>
     /// Redefines the current clipping region by the specified offsets

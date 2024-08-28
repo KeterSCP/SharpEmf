@@ -25,6 +25,7 @@ public readonly struct PointS
         Y = y;
     }
 
+    // TODO: read this as Int32 and reinterpret as PointS via Unsafe.BitCast to reduce the number of stream reads
     public static PointS Parse(Stream stream) => new(
         x: stream.ReadInt16(),
         y: stream.ReadInt16());

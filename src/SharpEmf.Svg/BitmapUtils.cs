@@ -8,13 +8,12 @@ internal static class BitmapUtils
     public static unsafe string DibToPngBase64(byte[] dibData, BitmapInfoHeader bitmapHeader)
     {
         // TODO: this assumes that the DIB is 24-bit RGB, handle other cases
+        var rgbaData = DibToRgba(dibData, bitmapHeader);
 
         using var bitmap = new SKBitmap();
 
         var width = bitmapHeader.Width;
         var height = bitmapHeader.Height;
-
-        var rgbaData = DibToRgba(dibData, bitmapHeader);
 
         fixed(byte* rgbaDataPtr = rgbaData)
         {
