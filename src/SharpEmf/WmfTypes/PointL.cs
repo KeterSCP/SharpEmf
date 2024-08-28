@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System.Diagnostics;
+using JetBrains.Annotations;
 using SharpEmf.Extensions;
 
 namespace SharpEmf.WmfTypes;
@@ -7,6 +8,7 @@ namespace SharpEmf.WmfTypes;
 /// Defines the coordinates of a point
 /// </summary>
 [PublicAPI]
+[DebuggerDisplay("X: {X}, Y: {Y}")]
 public readonly struct PointL
 {
     /// <summary>
@@ -25,6 +27,7 @@ public readonly struct PointL
         Y = y;
     }
 
+    // TODO: read this as Int64 and reinterpret as PointL via Unsafe.BitCast to reduce the number of stream reads
     public static PointL Parse(Stream stream) => new(
         x: stream.ReadInt32(),
         y: stream.ReadInt32());

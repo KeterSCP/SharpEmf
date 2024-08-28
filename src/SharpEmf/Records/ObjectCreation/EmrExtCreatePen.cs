@@ -17,7 +17,7 @@ public record EmrExtCreatePen : EnhancedMetafileRecord, IEmfParsable<EmrExtCreat
     /// <remarks>
     /// This index MUST be saved so that this object can be reused or modified
     /// </remarks>
-    public uint IhPen { get; }
+    public uint IHPen { get; }
 
     /// <summary>
     /// Specifies the offset from the start of this record to the DIB header if the record contains a DIB
@@ -66,7 +66,7 @@ public record EmrExtCreatePen : EnhancedMetafileRecord, IEmfParsable<EmrExtCreat
         IReadOnlyList<byte> bmiSrc,
         IReadOnlyList<byte> bitsSrc) : base(recordType, size)
     {
-        IhPen = ihPen;
+        IHPen = ihPen;
         OffBmi = offBmi;
         CbBmi = cbBmi;
         OffBits = offBits;

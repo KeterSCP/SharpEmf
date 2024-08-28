@@ -71,22 +71,19 @@ public record EmrPolyTextOutW : EnhancedMetafileRecord, IEmfParsable<EmrPolyText
 
     public static EmrPolyTextOutW Parse(Stream stream, EmfRecordType recordType, uint size)
     {
+        var positionBeforeParsing =
+            stream.Position -
+            // Base record fields
+            (Unsafe.SizeOf<EmfRecordType>() + Unsafe.SizeOf<uint>());
+
         var bounds = RectL.Parse(stream);
         var iGraphicsMode = stream.ReadEnum<GraphicsMode>();
         var exScale = stream.ReadFloat32();
         var eyScale = stream.ReadFloat32();
         var cStrings = stream.ReadUInt32();
 
-        var selfSizeWithoutTextBuffers =
-            // Base record fields
-            Unsafe.SizeOf<EmfRecordType>() +
-            Unsafe.SizeOf<uint>() +
-            // This record fields
-            Unsafe.SizeOf<RectL>() +
-            Unsafe.SizeOf<GraphicsMode>() +
-            Unsafe.SizeOf<float>() +
-            Unsafe.SizeOf<float>() +
-            Unsafe.SizeOf<uint>();
+        var positionAfterParsing = stream.Position;
+        var selfSizeWithoutTextBuffers = positionAfterParsing - positionBeforeParsing;
 
         var wEmrTexts = new List<EmrText>((int)cStrings);
 

@@ -55,10 +55,12 @@ public abstract record EnhancedMetafileRecord(EmfRecordType Type, uint Size)
             EmfRecordType.EMR_SETWINDOWORGEX => EmrSetWindowOrgEx.Parse,
             EmfRecordType.EMR_SETVIEWPORTEXTEX => EmrSetViewportExtEx.Parse,
             EmfRecordType.EMR_SETVIEWPORTORGEX => EmrSetViewportOrgEx.Parse,
+            EmfRecordType.EMR_SETBRUSHORGEX => EmrSetBrushOrgEx.Parse,
             EmfRecordType.EMR_SETMAPMODE => EmrSetMapMode.Parse,
             EmfRecordType.EMR_SETBKMODE => EmrSetBkMode.Parse,
             EmfRecordType.EMR_SETPOLYFILLMODE => EmrSetPolyfillMode.Parse,
             EmfRecordType.EMR_SETPIXELV => EmrSetPixelV.Parse,
+            EmfRecordType.EMR_SETTEXTCOLOR => EmrSetTextColor.Parse,
             EmfRecordType.EMR_OFFSETCLIPRGN => EmrOffsetClipRgn.Parse,
             EmfRecordType.EMR_MOVETOEX => EmrMoveToEx.Parse,
             EmfRecordType.EMR_EXCLUDECLIPRECT => EmrExcludeClipRect.Parse,
@@ -127,6 +129,8 @@ public abstract record EnhancedMetafileRecord(EmfRecordType Type, uint Size)
         {
             throw new MissingEmfRecordParserException(recordType);
         }
+
+        Console.WriteLine($"Skipped parsing EMF record of type: {recordType:X}");
 
         stream.Seek(size - 8, SeekOrigin.Current);
         return new PlaceholderRecord(recordType, size);

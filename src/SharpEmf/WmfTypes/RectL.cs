@@ -39,6 +39,7 @@ public readonly struct RectL
         Bottom = bottom;
     }
 
+    // TODO: read this as Int128 and reinterpret as RectL via Unsafe.BitCast to reduce the number of stream reads
     public static RectL Parse(Stream stream) => new(
         left: stream.ReadInt32(),
         top: stream.ReadInt32(),

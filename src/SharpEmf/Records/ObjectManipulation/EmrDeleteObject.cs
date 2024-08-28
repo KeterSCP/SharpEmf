@@ -17,11 +17,11 @@ public record EmrDeleteObject : EnhancedMetafileRecord, IEmfParsable<EmrDeleteOb
     /// This value MUST NOT be 0, which is a reserved index that refers to the EMF metafile itself;
     /// and it MUST NOT be the index of a <see cref="StockObject"/>, which cannot be deleted
     /// </remarks>
-    public uint IhObject { get; }
+    public uint IHObject { get; }
 
     private EmrDeleteObject(EmfRecordType Type, uint Size, uint ihObject) : base(Type, Size)
     {
-        IhObject = ihObject;
+        IHObject = ihObject;
     }
 
     public static EmrDeleteObject Parse(Stream stream, EmfRecordType recordType, uint size)

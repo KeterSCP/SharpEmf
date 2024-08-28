@@ -37,12 +37,21 @@ public readonly struct LogBrushEx
     /// </summary>
     public HatchStyle HatchStyle { get; }
 
+    public LogBrushEx(BrushStyle brushStyle, ColorRef color)
+    {
+        BrushStyle = brushStyle;
+        Color = color;
+        HatchStyle = HatchStyle.HS_SOLIDCLR;
+    }
+
     private LogBrushEx(BrushStyle brushStyle, ColorRef color, HatchStyle hatchStyle)
     {
         BrushStyle = brushStyle;
         Color = color;
         HatchStyle = hatchStyle;
     }
+
+    public static LogBrushEx Null { get; } = new(BrushStyle.BS_NULL, color: default);
 
     public static LogBrushEx Parse(Stream stream)
     {

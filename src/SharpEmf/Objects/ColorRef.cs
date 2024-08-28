@@ -26,6 +26,14 @@ public readonly struct ColorRef
     // DO NOT remove this field, it is required for proper calculation of the struct size
     private readonly byte _reserved;
 
+    public ColorRef(byte red, byte green, byte blue)
+    {
+        Red = red;
+        Green = green;
+        Blue = blue;
+        _reserved = 0;
+    }
+
     private ColorRef(byte red, byte green, byte blue, byte reserved)
     {
         Red = red;
@@ -36,6 +44,7 @@ public readonly struct ColorRef
 
     public static ColorRef Parse(Stream stream)
     {
+        // TODO: read this as Int32 and reinterpret as ColorRef via Unsafe.BitCast to reduce the number of stream reads
         var red = stream.ReadByte();
         var green = stream.ReadByte();
         var blue = stream.ReadByte();
